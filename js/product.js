@@ -1,18 +1,25 @@
 const productContainer = document.querySelector(".product-container");
 const resultadosEncontrados = document.querySelector(".products h3 span");
 const optionSort = document.querySelector(".sort");
+const inputSearch = document.querySelector(".inputSearch");
 
 function main(){
 
     fetch('./json/products.json')
     .then(response => {return response.json()})
     .then(myJson => {
-        resultadosEncontrados.innerHTML = myJson.length;
 
         productContainer.innerHTML = recorrerJson(myJson);
 
         optionSort.addEventListener("change", () =>{
-            productContainer.innerHTML = recorrerJson(myJson);
+            let listaFiltrada = buscarCoincidencia(inputSearch.value, myJson);
+            productContainer.innerHTML = recorrerJson(listaFiltrada);
+        });
+
+        inputSearch.addEventListener("change", () =>{
+
+            let listaFiltrada = buscarCoincidencia(inputSearch.value, myJson);
+            productContainer.innerHTML = recorrerJson(listaFiltrada);
         });
     });
 }
@@ -21,6 +28,8 @@ function main(){
 function recorrerJson(lista){
 
     //Recorre el JSON y va creando los articulos, esta funcion retorna un String con el contenido HTML necesario.
+
+    resultadosEncontrados.innerHTML = lista.length;
 
     let sortValue = optionSort.options[optionSort.selectedIndex].value;
 
@@ -32,7 +41,7 @@ function recorrerJson(lista){
         let envioGratis = tieneEnvioGratis(element["price"], 5.000);
         html = html + crearArticulo(element["title"],element["price"],element["img"],envioGratis);
     });
-    
+
     return html;
 
 }
@@ -47,6 +56,29 @@ function ordenarLista(lista, valueSort){
         case "3":
             return lista.sort((a,b) => {return a["price"] - b["price"]});
     }
+}
+
+function buscarCoincidencia(palabras, lista){
+    listaDePalabras = palabras.trim().split(" ");
+    let nuevaLista =  lista.filter(product => { return contienePalabra(product["title"],listaDePalabras);});
+    return nuevaLista;
+}
+
+function contienePalabra(titulo, palabras){
+
+    let coincidencia = false;
+
+    titulo = titulo.toLowerCase();
+
+    palabras = palabras.map(palabra => palabra.toLowerCase());
+
+    palabras.forEach(palabra => {
+        if(palabra != " " && titulo.includes(palabra)){
+            coincidencia = true;
+        }
+    });
+
+    return coincidencia;
 }
 
 function tieneEnvioGratis(precio, apartir){
