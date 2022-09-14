@@ -1,0 +1,79 @@
+.footer {
+    position: relative;
+    background-color: var(--white-bg-color);
+    border-top: 1px solid #E6E6E6;
+}
+
+.footer__grid-container {
+    display: grid;
+    grid-template-areas:
+        "acerca"
+        "ayuda"
+        "nosotros";
+    grid-template-rows: max-content;
+    grid-auto-columns: minmax(min-content, 280px);
+    margin: 50px 30px 0 30px;
+    padding-bottom: 30px;
+    gap: 43px;
+    justify-content: center;
+}
+
+.footer-acerca {
+    grid-area: acerca;
+}
+
+.footer-ayuda {
+    grid-area: ayuda;
+}
+
+.footer-nosotros {
+    grid-area: nosotros;
+}
+
+.footer__grid-container section {
+    padding: 20px;
+    padding-bottom: 30px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.footer__grid-container section:last-child {
+    box-shadow: none;
+}
+
+.footer__grid-container h3 {
+    font-weight: 700;
+    font-size: var(--footer-title);
+    color: var(--black-color);
+    padding-bottom: 11px;
+}
+
+.footer__grid-container p,.footer__grid-container li {
+    font-weight: 500;
+    font-size: var(--footer-text);
+    color: var(--black-color);
+}
+
+.footer-nosotros ul {
+    margin: 0 auto;
+    width: 200px;
+}
+
+.footer-nosotros li {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    gap: 10px;
+}
+
+.footer-nosotros h3 {
+    text-align: center;
+}
+
+.footer-copyright {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    font-weight: 400;
+    font-size: var(--footer-text);
+    color: #2E2C2C;
+}

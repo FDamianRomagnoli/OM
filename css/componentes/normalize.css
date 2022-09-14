@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+:root {
+    --major-color: #0E1525;
+    --main-bg-color: #EDEDED;
+    --input-bg-color: #FAFAFA;
+    --white-bg-color: #FFFFFF;
+    --black-color: #000000;
+    --footer-text: 1.6rem;
+    --footer-title: 1.8rem;
+    --font-inter: 'Inter', sans-serif;
+}
+
+html{
+    font-size: 62.5%;
+}
+
+li,
+a {
+    color: var(--input-bg-color);
+    text-decoration: none;
+    list-style: none;
+}
+
+main{
+    padding-top: 70px;
+    height: auto;
+    background-color: var(--main-bg-color);
+}

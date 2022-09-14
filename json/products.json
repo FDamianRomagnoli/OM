@@ -1,0 +1,37 @@
+[
+    {
+        "title": "Samsung Galaxy S22 8gb 128gb Phantom White",
+        "price": "215.999",
+        "img": "./img/products/galaxys22.png",
+        "brand" : "samsung",
+        "relevance": 10
+    },
+    {
+        "title": "Cargador Carga Rapida iPhone Original 20w X 11 12 13 Pro Max",
+        "price": "4.999",
+        "img": "./img/products/cargador1.png",
+        "brand": "apple",
+        "relevance": 7
+    },
+    {
+        "title": "Xiaomi Redmi Note 8 Dual SIM 64 GB Neptune blue 4 GB RAM",
+        "price": "89.055",
+        "img": "./img/products/xiaomi1.png",
+        "brand": "xiaomi",
+        "relevance": 5
+    },
+    {
+        "title": "Moto G22 128 GB cosmic black 4 GB RAM",
+        "price": "49.349",
+        "img": "./img/products/motorola1.png",
+        "brand": "motorola",
+        "relevance": 5
+    },
+    {
+        "title": "Motorola Edge 20 Lite 128 GB verde 6 GB RAM",
+        "price": "95.560",
+        "img": "./img/products/motorola2.png",
+        "brand": "motorola",
+        "relevance": 8
+    }
+]

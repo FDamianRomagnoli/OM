@@ -7,12 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open Market</title>
     <link rel="icon" href="img/logo-icon.svg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Raleway:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/componentes/normalize.css">
     <link rel="stylesheet" href="css/componentes/header.css">
     <link rel="stylesheet" href="css/componentes/footer.css">
-    <link rel="stylesheet" href="css/paginas/index.css">
+    <link rel="stylesheet" href="css/paginas/search.css">
 </head>
 
 <body>
@@ -47,8 +46,31 @@
         <div class="nav__opacity"></div>
 
     </header>
-    
+
     <main>
+    
+        <section class="setting-container">
+            <select class="sort">
+                <option value="1">Más relevantes</option>
+                <option value="2">Mayor precio</option>
+                <option value="3">Menor precio</option>
+            </select>
+            <div class="filter">Filtro</div>
+        </section>
+
+        <section class="products">
+            <h3>Resultados encontrados: <span> </span></h3>
+            <div class="product-container">
+
+            </div>
+        </section>
+
+        <section class="page">
+            <button class="page-back">< Anterior</button>
+            <div class="page-num">1</div>
+            <button class="page-next">Siguiente ></button>
+        </section>
+
 
     </main>
 
@@ -81,7 +103,9 @@
         <p class="footer-copyright">@ Copyright Open Marker 2022</p>
 
     </footer>
+
     <script src="js/navMobile.js"></script>
+    <script src="js/product.js"></script>
 
 </body>
 

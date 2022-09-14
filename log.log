@@ -2,3 +2,10 @@ v0.0.1:
 - Maquetado encabezado version mobile
 - Boton hamburguesa con animación y apertura de menu hecha en javaScript "navMobile.js"
 
+v0.1.0:
+- Maquetación pagina de productos para mobile y tablet
+- JavaScript agregado como "product.js" para ordenar la lista de productos y mostrarlas
+- Agregado JSON temporal para poder simular una base de datos de productos, con el mismo "product.js"
+mediante una promesa podemos recorrer la lista y insertarla en el HTML.
+- Nuevo ordenamiento de la carpeta CSS: La carpeta componentes se refiere al CSS que se usa en la mayoria de los
+archivos HTML, la carpeta paginas se refiere al CSS utilizado en especifico en un archivo HTML.
