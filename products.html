@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/componentes/normalize.css">
     <link rel="stylesheet" href="css/componentes/header.css">
     <link rel="stylesheet" href="css/componentes/footer.css">
-    <link rel="stylesheet" href="css/paginas/search.css">
+    <link rel="stylesheet" href="css/paginas/products.css">
 </head>
 
 <body>
@@ -55,7 +55,66 @@
                 <option value="2">Mayor precio</option>
                 <option value="3">Menor precio</option>
             </select>
-            <div class="filter">Filtro</div>
+            <div class="filter-container">
+                <div class="filter">Filtro</div>
+                <form name="filters">
+                    <button class="filters-exit" type="button"></button>
+                    <section class="filter-products">
+                        <h3>Productos</h3>
+                        <div>
+                            <input type="checkbox" class="checkbox-filter-product">
+                            <label>Celular</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="checkbox-filter-product">
+                            <label>Cargador</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="checkbox-filter-product">
+                            <label>Auricular</label>
+                        </div>
+                    </section>
+
+                    <section class="filter-brands">
+                        <h3>Marcas</h3>
+                        <div>
+                            <input type="checkbox" class="checkbox-filter-brand">
+                            <label for="samsung">Samsung</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="checkbox-filter-brand">
+                            <label for="motorola">Motorola</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="checkbox-filter-brand">
+                            <label>Xiaomi</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="checkbox-filter-brand">
+                            <label>IPhone</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="checkbox-filter-brand">
+                            <label>Huawei</label>
+                        </div>
+                    </section>
+
+                    <section class="filter-price">
+                        <h3>Gama de precios</h3>
+                            <div>
+                                <label for="">Desde</label>
+                                <input type="number" name="">
+                            </div>
+                            <div>
+                                <label for="">Hasta</label>
+                                <input type="number" name="">
+                                <button class="filter-price-button">></button>
+                            </div>
+                            
+                    </section>
+
+                </form>
+            </div>
         </section>
 
         <section class="products">
@@ -70,7 +129,6 @@
             <div class="page-num">1</div>
             <button class="page-next">Siguiente ></button>
         </section>
-
 
     </main>
 

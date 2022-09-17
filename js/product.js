@@ -2,6 +2,13 @@ const productContainer = document.querySelector(".product-container");
 const resultadosEncontrados = document.querySelector(".products h3 span");
 const optionSort = document.querySelector(".sort");
 const inputSearch = document.querySelector(".inputSearch");
+const btnFiltro = document.querySelector(".filter");
+const btnFiltroExit = document.querySelector(".filters-exit");
+const checkFiltrosMarca = document.querySelectorAll(".checkbox-filter-brand");
+const checkFiltrosProducto = document.querySelectorAll(".checkbox-filter-product");
+const checkFiltros = document.querySelectorAll(".checkbox-filter-brand,.checkbox-filter-product");
+let formularioFiltro = false;
+
 
 function main(){
 
@@ -11,19 +18,50 @@ function main(){
 
         productContainer.innerHTML = recorrerJson(myJson);
 
-        optionSort.addEventListener("change", () =>{
-            let listaFiltrada = buscarCoincidencia(inputSearch.value, myJson);
-            productContainer.innerHTML = recorrerJson(listaFiltrada);
+        optionSort.addEventListener("change", () => actualizarJson(myJson));
+
+        inputSearch.addEventListener("change", () => actualizarJson(myJson));
+
+        checkFiltros.forEach(check => {
+            check.addEventListener("change", () => actualizarJson(myJson));
         });
 
-        inputSearch.addEventListener("change", () =>{
-
-            let listaFiltrada = buscarCoincidencia(inputSearch.value, myJson);
-            productContainer.innerHTML = recorrerJson(listaFiltrada);
-        });
     });
+
+    btnFiltro.addEventListener("click", () => vistaFormulario());
+    btnFiltroExit.addEventListener("click", () => vistaFormulario());
+
 }
 
+function actualizarJson(lista){
+    let listaFiltrada = filtrarPorCheckbox(lista);
+    listaFiltrada = buscarCoincidencia(inputSearch.value, listaFiltrada);
+    productContainer.innerHTML = recorrerJson(listaFiltrada);
+}
+
+function filtrarPorCheckbox(lista){
+    lista = filtrarPor("brand",lista,checkFiltrosMarca);
+    lista = filtrarPor("product",lista,checkFiltrosProducto);
+    return lista;
+}
+
+function filtrarPor(llave, lista, checkList){
+    let ningunaElegida = true;
+    let marcas = [];
+
+    checkList.forEach(check => {
+        if(check.checked){
+            ningunaElegida = false;
+            marcas.push(check.nextElementSibling.innerHTML);
+        }
+    });
+
+    let listaFiltrada = lista.filter(producto => {
+        return marcas.includes(producto[llave]);
+    });
+
+    return ningunaElegida == true? lista : listaFiltrada; 
+}
 
 function recorrerJson(lista){
 
@@ -60,11 +98,11 @@ function ordenarLista(lista, valueSort){
 
 function buscarCoincidencia(palabras, lista){
     listaDePalabras = palabras.trim().split(" ");
-    let nuevaLista =  lista.filter(product => { return contienePalabra(product["title"],listaDePalabras);});
+    let nuevaLista =  lista.filter(product => { return contienePalabra(product["title"],listaDePalabras,product["brand"]);});
     return nuevaLista;
 }
 
-function contienePalabra(titulo, palabras){
+function contienePalabra(titulo, palabras, marca){
 
     let coincidencia = false;
 
@@ -73,7 +111,7 @@ function contienePalabra(titulo, palabras){
     palabras = palabras.map(palabra => palabra.toLowerCase());
 
     palabras.forEach(palabra => {
-        if(palabra != " " && titulo.includes(palabra)){
+        if(palabra != " " && (titulo.includes(palabra) || marca.includes(palabra))){
             coincidencia = true;
         }
     });
@@ -97,5 +135,27 @@ function crearArticulo(titulo, precio, imagen, envioGratis){
     </article>
     `;
 }
+
+function vistaFormulario(){
+    if(formularioFiltro){
+        document.filters.style.animationName = "desaparecer";
+        document.filters.style.animationIterationCount = "1";
+        setTimeout(() => {
+            document.filters.style.animationName = "none";
+            document.filters.style.display = "none";
+        },490);
+    }else{
+        document.filters.style.display = "grid";
+        document.filters.style.animationName = "aparecer";
+        document.filters.style.animationIterationCount = "1";
+        setTimeout(() => {
+            document.filters.style.animationName = "none";
+        },490);
+        
+    }
+
+    formularioFiltro = !formularioFiltro;
+}
+
 
 main();
