@@ -1,12 +1,21 @@
 const productContainer = document.querySelector(".product-container");
+
 const resultadosEncontrados = document.querySelector(".products h3 span");
+
 const optionSort = document.querySelector(".sort");
+
 const inputSearch = document.querySelector(".inputSearch");
+
 const btnFiltro = document.querySelector(".filter");
+
 const btnFiltroExit = document.querySelector(".filters-exit");
+
 const checkFiltrosMarca = document.querySelectorAll(".checkbox-filter-brand");
+
 const checkFiltrosProducto = document.querySelectorAll(".checkbox-filter-product");
-const checkFiltros = document.querySelectorAll(".checkbox-filter-brand,.checkbox-filter-product");
+
+const btnClean = document.querySelector(".filter-button-clean");
+
 let formularioFiltro = false;
 
 
@@ -18,12 +27,20 @@ function main(){
 
         productContainer.innerHTML = recorrerJson(myJson);
 
-        optionSort.addEventListener("change", () => actualizarJson(myJson));
+        optionSort.addEventListener("change", () => actualizarProductos(myJson));
 
-        inputSearch.addEventListener("change", () => actualizarJson(myJson));
+        inputSearch.addEventListener("change", () => actualizarProductos(myJson));
 
-        checkFiltros.forEach(check => {
-            check.addEventListener("change", () => actualizarJson(myJson));
+        document.filters.addEventListener("submit", event => {
+            event.preventDefault();
+            actualizarProductos(myJson);
+            setTimeout(vistaFormulario(),300);
+        })
+
+        btnClean.addEventListener("click", event => {
+            limpiarChecks(checkFiltrosMarca);
+            limpiarChecks(checkFiltrosProducto);
+            actualizarProductos(myJson);
         });
 
     });
@@ -33,17 +50,43 @@ function main(){
 
 }
 
-function actualizarJson(lista){
+
+
+function limpiarChecks(listCheckbox){
+    listCheckbox.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+}
+
+
+
+
+function actualizarProductos(lista){
     let listaFiltrada = filtrarPorCheckbox(lista);
     listaFiltrada = buscarCoincidencia(inputSearch.value, listaFiltrada);
+    resultadosEncontrados.innerHTML = listaFiltrada.length;
+    if(listaFiltrada.length == 0){
+        productContainer.nextElementSibling.style.display = "flex";
+    }else{
+        productContainer.nextElementSibling.style.display = "none";
+    }
     productContainer.innerHTML = recorrerJson(listaFiltrada);
+
+    
+    
 }
+
+
+
 
 function filtrarPorCheckbox(lista){
     lista = filtrarPor("brand",lista,checkFiltrosMarca);
     lista = filtrarPor("product",lista,checkFiltrosProducto);
     return lista;
 }
+
+
+
 
 function filtrarPor(llave, lista, checkList){
     let ningunaElegida = true;
@@ -62,6 +105,9 @@ function filtrarPor(llave, lista, checkList){
 
     return ningunaElegida == true? lista : listaFiltrada; 
 }
+
+
+
 
 function recorrerJson(lista){
 
@@ -143,14 +189,14 @@ function vistaFormulario(){
         setTimeout(() => {
             document.filters.style.animationName = "none";
             document.filters.style.display = "none";
-        },490);
+        },270);
     }else{
         document.filters.style.display = "grid";
         document.filters.style.animationName = "aparecer";
         document.filters.style.animationIterationCount = "1";
         setTimeout(() => {
             document.filters.style.animationName = "none";
-        },490);
+        },270);
         
     }
 

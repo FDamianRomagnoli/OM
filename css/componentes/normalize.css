@@ -14,6 +14,7 @@
     --footer-text: 1.6rem;
     --footer-title: 1.8rem;
     --font-inter: 'Inter', sans-serif;
+    --button-color: #1C3368;
 }
 
 html{
@@ -31,4 +32,26 @@ main{
     padding-top: 70px;
     height: auto;
     background-color: var(--main-bg-color);
+}
+
+button{
+    background-color: var(--button-color);
+    border-radius: 5px;
+}
+
+button:active{
+    background-color: #395497;
+}
+
+button,input{
+    border: none;
+    outline: none;
+}
+
+input{
+    background-color: var(--input-bg-color);
+}
+
+*{
+    user-select: none;
 }
