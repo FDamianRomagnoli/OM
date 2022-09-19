@@ -1,10 +1,12 @@
 const productContainer = document.querySelector(".product-container");
 
+const inputSearch = document.querySelector('.inputSearch');
+
+const btnSearch = inputSearch.nextElementSibling;
+
 const resultadosEncontrados = document.querySelector(".products h3 span");
 
 const optionSort = document.querySelector(".sort");
-
-const inputSearch = document.querySelector(".inputSearch");
 
 const btnFiltro = document.querySelector(".filter");
 
@@ -16,6 +18,7 @@ const checkFiltrosProducto = document.querySelectorAll(".checkbox-filter-product
 
 const btnClean = document.querySelector(".filter-button-clean");
 
+
 let formularioFiltro = false;
 
 
@@ -25,19 +28,37 @@ function main(){
     .then(response => {return response.json()})
     .then(myJson => {
 
-        productContainer.innerHTML = recorrerJson(myJson);
+        actualizarProductos(myJson);
 
         optionSort.addEventListener("change", () => actualizarProductos(myJson));
 
-        inputSearch.addEventListener("change", () => actualizarProductos(myJson));
+        inputSearch.addEventListener("change", () => {
+            limpiarSelector();
+            actualizarProductos(myJson);
+        });
+
+        btnSearch.addEventListener("change", () => {
+            limpiarSelector();
+            actualizarProductos(myJson);
+        });
+
+        pageSelection.btnAtras.addEventListener("click", () => {
+            actualizarProductos(myJson)
+        });
+
+        pageSelection.btnSiguiente.addEventListener("click", () => {
+            actualizarProductos(myJson)
+        });
 
         document.filters.addEventListener("submit", event => {
             event.preventDefault();
+            limpiarSelector();
             actualizarProductos(myJson);
             setTimeout(vistaFormulario(),300);
         })
 
         btnClean.addEventListener("click", event => {
+            limpiarSelector();
             limpiarChecks(checkFiltrosMarca);
             limpiarChecks(checkFiltrosProducto);
             actualizarProductos(myJson);
@@ -62,21 +83,61 @@ function limpiarChecks(listCheckbox){
 
 
 function actualizarProductos(lista){
+
     let listaFiltrada = filtrarPorCheckbox(lista);
     listaFiltrada = buscarCoincidencia(inputSearch.value, listaFiltrada);
-    resultadosEncontrados.innerHTML = listaFiltrada.length;
-    if(listaFiltrada.length == 0){
+    setearNumeroMaximoPaginas(listaFiltrada.length);
+    actualizarBotones();
+    animarReload(listaFiltrada.length);
+    
+    setTimeout(()=>{
+        productContainer.innerHTML = procesarProductos(listaFiltrada);
+    }, 1000);
+
+
+}
+
+function animarReload(longitudLista){
+    pageSelection.contenedor.style.opacity = '0';
+    productContainer.style.display = "none";
+    let reload = document.querySelector('.reload');
+    reload.style.display = "flex";
+    setTimeout(()=>{
+        productContainer.style.display = "grid";
+        pageSelection.contenedor.style.opacity = '1';
+        reload.style.display = "none";
+        mostrarCoincidencias(longitudLista);
+    }, 1010);
+}
+
+function filtrarListaPorPagina(lista, paginaActual){
+
+    let listaFiltrada = [];
+    let desde = paginaActual * 10 - 10;
+    let hasta = paginaActual * 10 - 1;
+
+    for(let indice = 0; indice <= hasta; indice++){
+        if(indice >= desde && indice <= hasta && lista[indice] != undefined ){
+            listaFiltrada.push(lista[indice]);
+        }
+    }
+
+    return listaFiltrada;
+}
+
+function mostrarCoincidencias(longitudLista){
+    resultadosEncontrados.innerHTML = longitudLista;
+    if(longitudLista == 0){
         productContainer.nextElementSibling.style.display = "flex";
     }else{
         productContainer.nextElementSibling.style.display = "none";
     }
-    productContainer.innerHTML = recorrerJson(listaFiltrada);
-
-    
-    
 }
 
-
+function setearNumeroMaximoPaginas(longitudLista){
+   let paginaMax = Math.trunc((longitudLista / 10)) + 1;
+   pageSelection.maximo = paginaMax;
+}
 
 
 function filtrarPorCheckbox(lista){
@@ -109,19 +170,17 @@ function filtrarPor(llave, lista, checkList){
 
 
 
-function recorrerJson(lista){
-
-    //Recorre el JSON y va creando los articulos, esta funcion retorna un String con el contenido HTML necesario.
-
-    resultadosEncontrados.innerHTML = lista.length;
+function procesarProductos(lista){
 
     let sortValue = optionSort.options[optionSort.selectedIndex].value;
 
     let listaOrdenada = ordenarLista(lista, sortValue);
 
+    let listaPorPagina = filtrarListaPorPagina(listaOrdenada, pageSelection.contador);
+
     let html = "";
 
-    listaOrdenada.forEach(element => {
+    listaPorPagina.forEach(element => {
         let envioGratis = tieneEnvioGratis(element["price"], 5.000);
         html = html + crearArticulo(element["title"],element["price"],element["img"],envioGratis);
     });
@@ -144,20 +203,21 @@ function ordenarLista(lista, valueSort){
 
 function buscarCoincidencia(palabras, lista){
     listaDePalabras = palabras.trim().split(" ");
-    let nuevaLista =  lista.filter(product => { return contienePalabra(product["title"],listaDePalabras,product["brand"]);});
+    let nuevaLista =  lista.filter(product => { return contienePalabra(product["title"],listaDePalabras,product["brand"],product["product"]);});
     return nuevaLista;
 }
 
-function contienePalabra(titulo, palabras, marca){
+function contienePalabra(titulo, palabras, marca, producto){
 
     let coincidencia = false;
 
     titulo = titulo.toLowerCase();
+    producto = producto.toLowerCase();
 
     palabras = palabras.map(palabra => palabra.toLowerCase());
 
     palabras.forEach(palabra => {
-        if(palabra != " " && (titulo.includes(palabra) || marca.includes(palabra))){
+        if(palabra != " " && (titulo.includes(palabra) || marca.includes(palabra) || producto.includes(palabra))){
             coincidencia = true;
         }
     });

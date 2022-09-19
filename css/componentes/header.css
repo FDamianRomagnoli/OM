@@ -17,20 +17,39 @@
     align-items: center;
     min-width: 120px;
     height: 42px;
-    padding: 0 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.4));
     background-color: var(--input-bg-color);
     border-radius: 2px;
 }
 
 .inputSearch {
-    width: 100%;
+    width: calc( 100% - 36px );
     height: 38px;
-    border: none;
-    outline: none;
     font-size: min(4vw, 16px);
     font-weight: 500;
     background-color: var(--input-bg-color);
+}
+
+.inputSearch-icon{
+    right: 0;
+    background-image: url('../../img/search.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: var(--input-bg-color);
+    width: 32px;
+    height: 32px;
+    border-radius: 0px;
+    transition: all .3s;
+}
+
+.inputSearch-icon:active{
+    background-color: var(--input-bg-color)
+}
+
+.inputSearch-icon:active, .inputSearch:checked ~ .inputSearch-icon{
+    transform: translateX(5px);
 }
 
 /*Navegador mobile*/

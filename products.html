@@ -24,7 +24,7 @@
 
         <div class="inputSearch-container">
             <input type="text" class="inputSearch" placeholder="Buscar productos ...">
-            <img src="./img/search.svg" alt="">
+            <button class="inputSearch-icon"></button>
         </div>
 
         <div class="mobile__button"></div>
@@ -47,7 +47,7 @@
 
     </header>
 
-    <main>
+    <main id="main">
     
         <section class="setting-container">
             <select class="sort">
@@ -132,6 +132,11 @@
                 <h2>¡Ups!</h2>
                 <p>No encontramos lo que buscas...</p>
             </div>
+
+            <div class="reload">
+                <div class="reload-fill"></div>
+            </div>
+
         </section>
 
         <section class="page">
@@ -172,8 +177,11 @@
 
     </footer>
 
+    <script src="js/numPage.js" ></script>
     <script src="js/navMobile.js"></script>
     <script src="js/product.js"></script>
+    <script src="js/search.js"></script>
+
 
 </body>
 

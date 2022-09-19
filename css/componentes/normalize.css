@@ -4,6 +4,12 @@
     box-sizing: border-box;
     font-family: 'Raleway', sans-serif;
 }
+  
+  /* Works on Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 0px;
+  }
+  
 
 :root {
     --major-color: #0E1525;
@@ -54,4 +60,37 @@ input{
 
 *{
     user-select: none;
+}
+
+.reload{
+    margin: 100px auto;
+    margin-top: 180px;
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: conic-gradient(var(--major-color) 90deg, var(--main-bg-color) 0deg);
+    animation: reloadAnimation 3s;
+    animation-iteration-count: infinite;
+}
+
+.reload-fill{
+    background-color: var(--main-bg-color);
+    width: 85%;
+    height: 85%;
+    border-radius: 100px;
+}
+
+@keyframes reloadAnimation {
+    0%{
+        transform: rotate(0deg);
+    }
+    50%{
+        transform: rotate(360deg);
+    }
+    100%{
+        transform: rotate(720deg);
+    }
 }
