@@ -9,3 +9,12 @@ v0.1.0:
 mediante una promesa podemos recorrer la lista y insertarla en el HTML.
 - Nuevo ordenamiento de la carpeta CSS: La carpeta componentes se refiere al CSS que se usa en la mayoria de los
 archivos HTML, la carpeta paginas se refiere al CSS utilizado en especifico en un archivo HTML.
+
+
+
+//
+
+v1.0.0:
+- Modificando JavaScript, en esta version es funcional
+- Pagina que muestra los productos funcionando con paginación frontend agarrando productos de un JSON tambien
+en el front.

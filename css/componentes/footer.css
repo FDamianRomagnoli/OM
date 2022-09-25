@@ -1,73 +1,82 @@
-.footer {
+footer{
+    background-color: var(--major-color);
     position: relative;
-    background-color: var(--white-bg-color);
-    border-top: 1px solid #E6E6E6;
 }
 
-.footer__grid-container {
-    display: grid;
-    grid-template-areas:
-        "acerca"
-        "ayuda"
-        "nosotros";
-    grid-template-rows: max-content;
-    grid-auto-columns: minmax(min-content, 280px);
-    margin: 50px 30px 0 30px;
-    padding-bottom: 30px;
-    gap: 43px;
-    justify-content: center;
-}
+/* ABOUT */
 
-.footer-acerca {
-    grid-area: acerca;
-}
-
-.footer-ayuda {
-    grid-area: ayuda;
-}
-
-.footer-nosotros {
-    grid-area: nosotros;
-}
-
-.footer__grid-container section {
-    padding: 20px;
-    padding-bottom: 30px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.footer__grid-container section:last-child {
-    box-shadow: none;
-}
-
-.footer__grid-container h3 {
-    font-weight: 700;
-    font-size: var(--footer-title);
-    color: var(--black-color);
-    padding-bottom: 11px;
-}
-
-.footer__grid-container p,.footer__grid-container li {
-    font-weight: 500;
-    font-size: var(--footer-text);
-    color: var(--black-color);
-}
-
-.footer-nosotros ul {
-    margin: 0 auto;
-    width: 200px;
-}
-
-.footer-nosotros li {
+.footer-about{
     display: flex;
+    flex-direction: column;
+    padding: 30px;
     align-items: center;
-    padding-bottom: 10px;
-    gap: 10px;
+    gap: 20px;
 }
 
-.footer-nosotros h3 {
-    text-align: center;
+.footer-about img{
+    width: 180px;
+    height: 100px;
 }
+
+.footer-about p{
+    font-weight: 400;
+    width: 95%;
+    max-width: 320px;
+    font-size: 1.9rem;
+    text-align: center;
+    line-height: 25px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color: var(--text-color);
+}
+
+/* LINKS */
+
+footer h2{
+    font-size: min(8vw,26px);
+    font-weight: 600;
+    color: var(--text-color);
+    letter-spacing: 2.5px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+footer li{
+    font-size: 18px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1.4rem;
+    font-weight: 500;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.footer-links{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(2, max-content);
+    column-gap: 30px;
+}
+
+.footer-links h2{
+    margin-bottom: 1.8rem;
+}
+
+.footer-link-icon{
+    display: inline-block;
+    width: 4px;
+    height: 15px;
+    margin-right: 4px;
+}
+
+.footer-links-product .footer-link-icon{
+    background-color: #FF0000;
+}
+
+.footer-links-brand .footer-link-icon{
+    background-color: #00C2FF;
+}
+
+
+/* Copyright */
 
 .footer-copyright {
     position: absolute;
@@ -75,5 +84,99 @@
     left: 5px;
     font-weight: 400;
     font-size: var(--footer-text);
-    color: #2E2C2C;
+    color: #C3C3C3;
+}
+
+/* NOSOTROS */
+
+.footer-us{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    color: var(--text-color);
+}
+
+.footer-us img{
+    margin-right: 9px;
+}
+
+/* FOOTER GRID */
+
+.footer__grid-container{
+    display: grid;
+    padding-bottom: 70px;
+    grid-template-areas: 
+    "about"
+    "products"
+    "us";
+    row-gap: 45px;
+}
+
+.footer-about{
+    grid-area: about;
+}
+
+.footer-links{
+    grid-area: products;
+}
+
+.footer-us{
+    grid-area: us;
+}
+
+/* SPAN */
+
+.span-salto{
+    display: block;
+    color: transparent;
+    height: 10px;
+}
+
+.span-color-celest{
+    color: #00C2FF;
+    font-weight: 500;
+}
+
+/* TABLET 768px */
+
+@media (min-width: 768px) {
+    .footer__grid-container{
+        grid-template-areas: 
+        "about about"
+        "products us";
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .footer-us{
+        align-self: start;
+    }
+
+    .footer-about p{
+        max-width: 700px;
+    }
+
+}
+
+/* PORTATIL 1024px */
+
+@media (min-width: 1024px) {
+    .footer__grid-container{
+        grid-template-areas: 
+        "about products us";
+        justify-content: space-evenly;
+        grid-auto-rows: 500px;
+    }
+
+    .footer-about p{
+        max-width: 400px;
+    }
+
+    .footer-links{
+        grid-template-columns: max-content;
+        row-gap: 30px;
+        align-items: center;
+    }
+
 }

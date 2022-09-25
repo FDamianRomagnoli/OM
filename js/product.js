@@ -1,25 +1,27 @@
-const productContainer = document.querySelector(".product-container");
-
+const contenedorProducto = document.querySelector(".product-container");
+const cartelProductoNoEncontrados = contenedorProducto.nextElementSibling;
+const loading = document.querySelector('.loading');
 const inputSearch = document.querySelector('.inputSearch');
-
 const btnSearch = inputSearch.nextElementSibling;
-
-const resultadosEncontrados = document.querySelector(".products h3 span");
-
+const contenedorResultadosEncontrados = document.querySelector(".products h3");
+const resultadosEncontrados = contenedorResultadosEncontrados.firstElementChild;
 const optionSort = document.querySelector(".sort");
-
 const btnFiltro = document.querySelector(".filter");
-
 const btnFiltroExit = document.querySelector(".filters-exit");
-
-const checkFiltrosMarca = document.querySelectorAll(".checkbox-filter-brand");
-
-const checkFiltrosProducto = document.querySelectorAll(".checkbox-filter-product");
-
 const btnClean = document.querySelector(".filter-button-clean");
-
+const checkboxAll = document.querySelectorAll("[type='checkbox']");
+const formFiltros = document.filters;
 
 let formularioFiltro = false;
+let checkFiltrosMarca = [];
+let checkFiltrosProducto = [];
+
+let checkGuardados  = () =>{
+    let lista;
+    checkboxAll.forEach(e =>{
+        lista.push(false);
+    })
+}
 
 
 function main(){
@@ -50,36 +52,41 @@ function main(){
             actualizarProductos(myJson)
         });
 
-        document.filters.addEventListener("submit", event => {
+        formFiltros.addEventListener("submit", event => {
             event.preventDefault();
+            const formData = new FormData(event.currentTarget);
+            checkFiltrosMarca = formData.getAll('filter-brand');
+            checkFiltrosProducto = formData.getAll('filter-product');
             limpiarSelector();
             actualizarProductos(myJson);
             setTimeout(vistaFormulario(),300);
         })
 
-        btnClean.addEventListener("click", event => {
-            limpiarSelector();
-            limpiarChecks(checkFiltrosMarca);
-            limpiarChecks(checkFiltrosProducto);
-            actualizarProductos(myJson);
+        btnClean.addEventListener("click", () => {
+
+            cancelarLimpieza = [];
+            checkboxAll.forEach(check => {
+                cancelarLimpieza.push(check.checked);
+                check.checked = false;
+            })
+
+
         });
 
     });
 
     btnFiltro.addEventListener("click", () => vistaFormulario());
-    btnFiltroExit.addEventListener("click", () => vistaFormulario());
-
-}
 
 
 
-function limpiarChecks(listCheckbox){
-    listCheckbox.forEach(checkbox => {
-        checkbox.checked = false;
+    btnFiltroExit.addEventListener("click", () => {
+        for(index = 0; index < checkboxAll.length ; index++){
+            checkboxAll[index].checked = cancelarLimpieza[index];
+        }
+        vistaFormulario();
     });
+
 }
-
-
 
 
 function actualizarProductos(lista){
@@ -91,24 +98,12 @@ function actualizarProductos(lista){
     animarReload(listaFiltrada.length);
     
     setTimeout(()=>{
-        productContainer.innerHTML = procesarProductos(listaFiltrada);
+        contenedorProducto.innerHTML = procesarProductos(listaFiltrada);
     }, 1000);
 
 
 }
 
-function animarReload(longitudLista){
-    pageSelection.contenedor.style.opacity = '0';
-    productContainer.style.display = "none";
-    let reload = document.querySelector('.reload');
-    reload.style.display = "flex";
-    setTimeout(()=>{
-        productContainer.style.display = "grid";
-        pageSelection.contenedor.style.opacity = '1';
-        reload.style.display = "none";
-        mostrarCoincidencias(longitudLista);
-    }, 1010);
-}
 
 function filtrarListaPorPagina(lista, paginaActual){
 
@@ -127,11 +122,15 @@ function filtrarListaPorPagina(lista, paginaActual){
 
 function mostrarCoincidencias(longitudLista){
     resultadosEncontrados.innerHTML = longitudLista;
+
     if(longitudLista == 0){
-        productContainer.nextElementSibling.style.display = "flex";
-    }else{
-        productContainer.nextElementSibling.style.display = "none";
+        agregarDisplayHTML(cartelProductoNoEncontrados, "flex");
+        eliminarDisplayHTML(contenedorProducto);
+        return;
     }
+
+    agregarDisplayHTML(contenedorProducto, "grid");
+    eliminarDisplayHTML(cartelProductoNoEncontrados);
 }
 
 function setearNumeroMaximoPaginas(longitudLista){
@@ -141,30 +140,24 @@ function setearNumeroMaximoPaginas(longitudLista){
 
 
 function filtrarPorCheckbox(lista){
-    lista = filtrarPor("brand",lista,checkFiltrosMarca);
-    lista = filtrarPor("product",lista,checkFiltrosProducto);
+    lista = filtrarPor(lista,"brand",checkFiltrosMarca);
+    lista = filtrarPor(lista,"product",checkFiltrosProducto);
     return lista;
 }
 
 
 
 
-function filtrarPor(llave, lista, checkList){
-    let ningunaElegida = true;
-    let marcas = [];
+function filtrarPor(lista, llave, checkList){
+    if(checkList.length != 0){
+        let listaFiltrada = lista.filter(producto => {
+            return checkList.includes(producto[llave]);
+        })
+        return listaFiltrada;
+    }
 
-    checkList.forEach(check => {
-        if(check.checked){
-            ningunaElegida = false;
-            marcas.push(check.nextElementSibling.innerHTML);
-        }
-    });
+    return lista;
 
-    let listaFiltrada = lista.filter(producto => {
-        return marcas.includes(producto[llave]);
-    });
-
-    return ningunaElegida == true? lista : listaFiltrada; 
 }
 
 
@@ -203,7 +196,11 @@ function ordenarLista(lista, valueSort){
 
 function buscarCoincidencia(palabras, lista){
     listaDePalabras = palabras.trim().split(" ");
-    let nuevaLista =  lista.filter(product => { return contienePalabra(product["title"],listaDePalabras,product["brand"],product["product"]);});
+
+    let nuevaLista =  lista.filter(product => { 
+        return contienePalabra(product["title"],listaDePalabras,product["brand"],product["product"]);
+    });
+
     return nuevaLista;
 }
 
@@ -244,18 +241,18 @@ function crearArticulo(titulo, precio, imagen, envioGratis){
 
 function vistaFormulario(){
     if(formularioFiltro){
-        document.filters.style.animationName = "desaparecer";
-        document.filters.style.animationIterationCount = "1";
+        formFiltros.style.animationName = "desaparecer";
+        formFiltros.style.animationIterationCount = "1";
         setTimeout(() => {
-            document.filters.style.animationName = "none";
-            document.filters.style.display = "none";
+            formFiltros.style.animationName = "none";
+            formFiltros.style.display = "none";
         },270);
     }else{
-        document.filters.style.display = "grid";
-        document.filters.style.animationName = "aparecer";
-        document.filters.style.animationIterationCount = "1";
+        formFiltros.style.display = "grid";
+        formFiltros.style.animationName = "aparecer";
+        formFiltros.style.animationIterationCount = "1";
         setTimeout(() => {
-            document.filters.style.animationName = "none";
+            formFiltros.style.animationName = "none";
         },270);
         
     }
@@ -263,5 +260,39 @@ function vistaFormulario(){
     formularioFiltro = !formularioFiltro;
 }
 
+
+
+function animarReload(longitudLista){
+
+    desaparecerElementoHTML(pageSelection.contenedor);
+    desaparecerElementoHTML(contenedorResultadosEncontrados);
+    eliminarDisplayHTML(cartelProductoNoEncontrados);
+    eliminarDisplayHTML(contenedorProducto);
+    agregarDisplayHTML(loading, "flex");
+
+    setTimeout(()=>{
+        agregarDisplayHTML(contenedorProducto, "grid");
+        aparecerElementoHTML(pageSelection.contenedor);
+        aparecerElementoHTML(contenedorResultadosEncontrados);
+        eliminarDisplayHTML(loading);
+        mostrarCoincidencias(longitudLista);
+    }, 1010);
+}
+
+function desaparecerElementoHTML(elemento){
+    elemento.style.opacity = '0';
+}
+
+function aparecerElementoHTML(elemento){
+    elemento.style.opacity = '1';
+}
+
+function eliminarDisplayHTML(elemento){
+    elemento.style.display = 'none';
+}
+
+function agregarDisplayHTML(elemento, tipo){
+    elemento.style.display = tipo;
+}
 
 main();

@@ -15,6 +15,7 @@
     --major-color: #0E1525;
     --main-bg-color: #EDEDED;
     --input-bg-color: #FAFAFA;
+    --text-color: #FAFAFA;
     --white-bg-color: #FFFFFF;
     --black-color: #000000;
     --footer-text: 1.6rem;
@@ -62,7 +63,7 @@ input{
     user-select: none;
 }
 
-.reload{
+.loading{
     margin: 100px auto;
     margin-top: 180px;
     width: 100px;
@@ -76,12 +77,13 @@ input{
     animation-iteration-count: infinite;
 }
 
-.reload-fill{
+.loading-fill{
     background-color: var(--main-bg-color);
     width: 85%;
     height: 85%;
     border-radius: 100px;
 }
+
 
 @keyframes reloadAnimation {
     0%{

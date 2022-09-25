@@ -50,74 +50,61 @@
     <main id="main">
     
         <section class="setting-container">
+            
             <select class="sort">
                 <option value="1">Más relevantes</option>
                 <option value="2">Mayor precio</option>
                 <option value="3">Menor precio</option>
             </select>
+
             <div class="filter-container">
                 <div class="filter">Filtro</div>
-                <form name="filters">
+                <form name="filters" action="./products.html" method="GET">
                     <button class="filters-exit" type="button"></button>
                     <section class="filter-products">
                         <h3>Productos</h3>
                         <div>
-                            <input type="checkbox" class="checkbox-filter-product" id="check-celular">
-                            <label for="check-celular">Celular</label>
+                            <input type="checkbox" id="check1" name="filter-product" value="Celular">
+                            <label for="check1">Celular</label>
                         </div>
                         <div>
-                            <input type="checkbox" class="checkbox-filter-product" id="check-cargador">
-                            <label for="check-cargador">Cargador</label>
+                            <input type="checkbox" id="check2" name="filter-product" value="Cargador">
+                            <label for="check2">Cargador</label>
                         </div>
                         <div>
-                            <input type="checkbox" class="checkbox-filter-product" id="check-auricular">
-                            <label for="check-auricular">Auricular</label>
+                            <input type="checkbox" id="check3" name="filter-product" value="Auricular">
+                            <label for="check3">Auricular</label>
                         </div>
                     </section>
 
                     <section class="filter-brands">
                         <h3>Marcas</h3>
                         <div>
-                            <input type="checkbox" class="checkbox-filter-brand" id="check-samsung">
-                            <label for="check-samsung">Samsung</label>
+                            <input type="checkbox" id="check4" name="filter-brand" value="Samsung">
+                            <label for="check4">Samsung</label>
                         </div>
                         <div>
-                            <input type="checkbox" class="checkbox-filter-brand" id="check-motorola">
-                            <label for="check-motorola">Motorola</label>
+                            <input type="checkbox" id="check5" name="filter-brand" value="Motorola">
+                            <label for="check5">Motorola</label>
                         </div>
                         <div>
-                            <input type="checkbox" class="checkbox-filter-brand" id="check-xiaomi">
-                            <label for="check-xiaomi">Xiaomi</label>
+                            <input type="checkbox" id="check6" name="filter-brand" value="Xiaomi">
+                            <label for="check6">Xiaomi</label>
                         </div>
                         <div>
-                            <input type="checkbox" class="checkbox-filter-brand" id="check-iphone">
-                            <label for="check-iphone">IPhone</label>
+                            <input type="checkbox" id="check7" name="filter-brand" value="IPhone">
+                            <label for="check7">IPhone</label>
                         </div>
                         <div>
-                            <input type="checkbox" class="checkbox-filter-brand" id="check-huawei">
-                            <label for="check-huawei">Huawei</label>
+                            <input type="checkbox" id="check8" name="filter-brand" value="Huawei">
+                            <label for="check8">Huawei</label>
                         </div>
                     </section>
-
-                    <!-- <section class="filter-price">
-                        <h3>Gama de precios</h3>
-                            <div>
-                                <label for="">Desde</label>
-                                <input type="number" name="">
-                            </div>
-                            <div>
-                                <label for="">Hasta</label>
-                                <input type="number" name="">
-                                <button class="filter-price-button">></button>
-                            </div>
-                            
-                    </section> -->
 
                     <section class="filter-button-container">
                         <button type="button" class="filter-button filter-button-clean">Limpiar</button>
-                        <button type="submit" class="filter-button">Aplicar</button>
+                        <button class="filter-button">Aplicar</button>
                     </section>
-
                 </form>
             </div>
         </section>
@@ -133,8 +120,8 @@
                 <p>No encontramos lo que buscas...</p>
             </div>
 
-            <div class="reload">
-                <div class="reload-fill"></div>
+            <div class="loading">
+                <div class="loading-fill"></div>
             </div>
 
         </section>
@@ -147,23 +134,38 @@
 
     </main>
 
-    <footer class="footer">
+    <footer>
 
         <div class="footer__grid-container">
 
-            <section class="footer-acerca">
-                <h3>Acerca de</h3>
-                <p>Somos una empresa dedicada al comercio electronico, nuestros objetivos son preservar la seguridad del
-                    cliente al realizar compras en internet.</p>
+            <section class="footer-about">
+                <img src="./img/logo-footer-png.png" alt="logo de openmarket para el pie de pagina">
+                <p>Somos una empresa enfocada al <span class="span-color-celest">comercio electronico</span> de celulares y accesorios.
+                    <span class="span-salto">.</span>
+                    Nuestro principal objetivo es preservar la <span class="span-color-celest">seguridad del cliente</span> al realizar compras en internet.</p>
             </section>
 
-            <section class="footer-ayuda">
-                <h3>¿Necesita ayuda?</h3>
-                <p>Presione <b>aquí</b> para ponerte en contacto con nosotros.</p>
+            <section class="footer-links">
+                <ul class="footer-links-product">
+                    <h2>Productos</h2>
+                    <li><i class="footer-link-icon"></i>Celulares</li>
+                    <li><i class="footer-link-icon"></i>Auriculares</li>
+                    <li><i class="footer-link-icon"></i>Cargadores</li>
+                </ul>
+
+                <ul class="footer-links-brand">
+                    <h2>Marcas</h2>
+                    <li><i class="footer-link-icon"></i>Samsung</li>
+                    <li><i class="footer-link-icon"></i>IPhone</li>
+                    <li><i class="footer-link-icon"></i>Motorola</li>
+                    <li><i class="footer-link-icon"></i>Xiaomi</li>
+                    <li><i class="footer-link-icon"></i>Huawei</li>
+                </ul>
+
             </section>
 
-            <section class="footer-nosotros">
-                <h3>Realizado por</h3>
+            <section class="footer-us">
+                <h2>Realizado por</h2>
                 <ul>
                     <li><img src="img/font-linkedin.svg" alt="icono de linkedin">M. Belen Yancafil</li>
                     <li><img src="img/font-linkedin.svg" alt="icono de linkedin">Federico Re</li>
