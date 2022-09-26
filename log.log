@@ -18,3 +18,6 @@ v1.0.0:
 - Modificando JavaScript, en esta version es funcional
 - Pagina que muestra los productos funcionando con paginación frontend agarrando productos de un JSON tambien
 en el front.
+
+v1.0.1:
+- Mejor optimizado el codigo de JavaScript y mas limpio

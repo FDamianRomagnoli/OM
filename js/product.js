@@ -2,29 +2,26 @@ const contenedorProducto = document.querySelector(".product-container");
 const cartelProductoNoEncontrados = contenedorProducto.nextElementSibling;
 const loading = document.querySelector('.loading');
 const inputSearch = document.querySelector('.inputSearch');
-const btnSearch = inputSearch.nextElementSibling;
 const contenedorResultadosEncontrados = document.querySelector(".products h3");
 const resultadosEncontrados = contenedorResultadosEncontrados.firstElementChild;
 const optionSort = document.querySelector(".sort");
 const btnFiltro = document.querySelector(".filter");
 const btnFiltroExit = document.querySelector(".filters-exit");
 const btnClean = document.querySelector(".filter-button-clean");
+const btnSearch = inputSearch.nextElementSibling;
 const checkboxAll = document.querySelectorAll("[type='checkbox']");
 const formFiltros = document.filters;
+
 
 let formularioFiltro = false;
 let checkFiltrosMarca = [];
 let checkFiltrosProducto = [];
 
-let checkGuardados  = () =>{
-    let lista;
-    checkboxAll.forEach(e =>{
-        lista.push(false);
-    })
-}
+let checkGuardados  = obtenerValoresCheckbox();
 
 
 function main(){
+
 
     fetch('./json/products.json')
     .then(response => {return response.json()})
@@ -44,81 +41,79 @@ function main(){
             actualizarProductos(myJson);
         });
 
-        pageSelection.btnAtras.addEventListener("click", () => {
-            actualizarProductos(myJson)
-        });
+        pageSelection.btnAtras.addEventListener("click", () => actualizarProductos(myJson));
 
-        pageSelection.btnSiguiente.addEventListener("click", () => {
-            actualizarProductos(myJson)
-        });
+        pageSelection.btnSiguiente.addEventListener("click", () => actualizarProductos(myJson));
 
         formFiltros.addEventListener("submit", event => {
-            event.preventDefault();
+            event.preventDefault(); //Evita recargar la pagina con el envio del formulario
+            checkGuardados  = obtenerValoresCheckbox();
             const formData = new FormData(event.currentTarget);
             checkFiltrosMarca = formData.getAll('filter-brand');
             checkFiltrosProducto = formData.getAll('filter-product');
             limpiarSelector();
             actualizarProductos(myJson);
-            setTimeout(vistaFormulario(),300);
+            vistaFormulario();
         })
 
-        btnClean.addEventListener("click", () => {
-
-            cancelarLimpieza = [];
-            checkboxAll.forEach(check => {
-                cancelarLimpieza.push(check.checked);
-                check.checked = false;
-            })
-
-
+        btnClean.addEventListener("click", () => { 
+            formFiltros.reset();
+            checkGuardados  = obtenerValoresCheckbox();
         });
 
     });
 
-    btnFiltro.addEventListener("click", () => vistaFormulario());
-
 
 
     btnFiltroExit.addEventListener("click", () => {
-        for(index = 0; index < checkboxAll.length ; index++){
-            checkboxAll[index].checked = cancelarLimpieza[index];
-        }
+
+        checkboxAll.forEach((elemento,index) => {
+            elemento.checked = checkGuardados[index];
+        })
+    
         vistaFormulario();
     });
 
-}
+    btnFiltro.addEventListener("click", () => vistaFormulario());
 
+}
 
 function actualizarProductos(lista){
 
     let listaFiltrada = filtrarPorCheckbox(lista);
     listaFiltrada = buscarCoincidencia(inputSearch.value, listaFiltrada);
-    setearNumeroMaximoPaginas(listaFiltrada.length);
+    let cantidadDeResultados = listaFiltrada.length;
+    setearNumeroMaximoPaginas(cantidadDeResultados);
     actualizarBotones();
-    animarReload(listaFiltrada.length);
-    
+
+    ocultarElementosPrincipales(); //Oculta todos los elementos para mostrar la animacion de carga
+    mostrarLoading(); // Muestra el contenedor que posee la animacion  de carga
+
+
     setTimeout(()=>{
         contenedorProducto.innerHTML = procesarProductos(listaFiltrada);
+        ocultarLoading(); //Oculta el contenedor que posee la animacion de carga
+        aparecerElementosPrincipales(cantidadDeResultados); // Aparece los elementos que fueron ocultados
     }, 1000);
 
 
 }
 
-
-function filtrarListaPorPagina(lista, paginaActual){
-
-    let listaFiltrada = [];
-    let desde = paginaActual * 10 - 10;
-    let hasta = paginaActual * 10 - 1;
-
-    for(let indice = 0; indice <= hasta; indice++){
-        if(indice >= desde && indice <= hasta && lista[indice] != undefined ){
-            listaFiltrada.push(lista[indice]);
-        }
-    }
-
-    return listaFiltrada;
+function obtenerValoresCheckbox(){
+    return [...checkboxAll].map((elemento) =>{
+        return elemento.checked;
+    });
 }
+
+
+function filtrarListaPorPagina(lista, numeroDePagina){
+
+    let desde = numeroDePagina * 10 - 10;
+    let hasta = numeroDePagina * 10;
+    return lista.slice(desde,hasta); //Corto el Array para mostrar 10 articulos por pagina
+
+}
+
 
 function mostrarCoincidencias(longitudLista){
     resultadosEncontrados.innerHTML = longitudLista;
@@ -148,15 +143,11 @@ function filtrarPorCheckbox(lista){
 
 
 
-function filtrarPor(lista, llave, checkList){
-    if(checkList.length != 0){
-        let listaFiltrada = lista.filter(producto => {
-            return checkList.includes(producto[llave]);
-        })
-        return listaFiltrada;
-    }
+function filtrarPor(lista, key, listaFiltros){
 
-    return lista;
+    return listaFiltros == 0 ? lista : lista.filter(producto => {
+        return listaFiltros.includes(producto[key]);
+    });
 
 }
 
@@ -241,18 +232,19 @@ function crearArticulo(titulo, precio, imagen, envioGratis){
 
 function vistaFormulario(){
     if(formularioFiltro){
-        formFiltros.style.animationName = "desaparecer";
-        formFiltros.style.animationIterationCount = "1";
+        iniciarAnimacion(formFiltros, "aparecer", "reverse");
+
         setTimeout(() => {
-            formFiltros.style.animationName = "none";
-            formFiltros.style.display = "none";
+            eliminarAnimacion(formFiltros);
+            eliminarDisplayHTML(formFiltros);
         },270);
+
     }else{
-        formFiltros.style.display = "grid";
-        formFiltros.style.animationName = "aparecer";
-        formFiltros.style.animationIterationCount = "1";
+        agregarDisplayHTML(formFiltros, "grid");
+        iniciarAnimacion(formFiltros, "aparecer", "normal");
+
         setTimeout(() => {
-            formFiltros.style.animationName = "none";
+            eliminarAnimacion(formFiltros);
         },270);
         
     }
@@ -260,24 +252,39 @@ function vistaFormulario(){
     formularioFiltro = !formularioFiltro;
 }
 
+function iniciarAnimacion(elemento, nombreAnimacion, direccion){
+    elemento.style.animationDirection = direccion;
+    elemento.style.animationName = nombreAnimacion;
+    elemento.style.animationIterationCount = "1";
+}
+
+function eliminarAnimacion(elemento){
+    elemento.style.animationName = "none";
+}
+
+function mostrarLoading(){
+    agregarDisplayHTML(loading, "flex");
+}
+
+function ocultarLoading(){
+    eliminarDisplayHTML(loading);
+}
 
 
-function animarReload(longitudLista){
-
+function ocultarElementosPrincipales(){
     desaparecerElementoHTML(pageSelection.contenedor);
     desaparecerElementoHTML(contenedorResultadosEncontrados);
     eliminarDisplayHTML(cartelProductoNoEncontrados);
     eliminarDisplayHTML(contenedorProducto);
-    agregarDisplayHTML(loading, "flex");
-
-    setTimeout(()=>{
-        agregarDisplayHTML(contenedorProducto, "grid");
-        aparecerElementoHTML(pageSelection.contenedor);
-        aparecerElementoHTML(contenedorResultadosEncontrados);
-        eliminarDisplayHTML(loading);
-        mostrarCoincidencias(longitudLista);
-    }, 1010);
 }
+
+function aparecerElementosPrincipales(longitudLista){
+    agregarDisplayHTML(contenedorProducto, "grid");
+    aparecerElementoHTML(pageSelection.contenedor);
+    aparecerElementoHTML(contenedorResultadosEncontrados);
+    mostrarCoincidencias(longitudLista);
+}
+
 
 function desaparecerElementoHTML(elemento){
     elemento.style.opacity = '0';
