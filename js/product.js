@@ -22,7 +22,6 @@ let checkGuardados  = obtenerValoresCheckbox();
 
 function main(){
 
-
     fetch('./json/products.json')
     .then(response => {return response.json()})
     .then(myJson => {

@@ -1,10 +1,21 @@
+@font-face {
+    font-family: sansProRegular;
+    src: url(./fonts/sourcesanspro/SourceSansPro-Regular.ttf);
+}
+@font-face {
+    font-family: sansProBold;
+    src: url(./fonts/sourcesanspro/SourceSansPro-Bold.ttf);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Raleway', sans-serif;
+    font-family: sansProRegular;
 }
   
+
+
   /* Works on Chrome, Edge, and Safari */
   *::-webkit-scrollbar {
     width: 0px;
@@ -85,6 +96,7 @@ input{
 }
 
 
+
 @keyframes reloadAnimation {
     0%{
         transform: rotate(0deg);
@@ -95,4 +107,60 @@ input{
     100%{
         transform: rotate(720deg);
     }
+}
+
+
+.btnRect{
+    background-color: transparent;
+    position: relative;
+    min-width: 220px;
+    max-width: 240px;
+    height: 45px;
+    border-radius: 0;
+}
+
+.btnRect:hover{
+    background-color: transparent;
+}
+
+.btn__text{
+    height: 100%;
+    color: #FFFFFF;
+    font-family: sansProBold;
+    font-size: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnRect svg, .btnRect .rect1, .btnRect .rect2{
+    height: 100%;
+    width: 100%;
+}
+
+.btnRect .rect1, .btnRect .rect2{
+    stroke-width: 8px;
+}
+
+.btnRect svg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    fill: transparent;
+}
+
+.btnRect .rect1{
+    stroke: #FFF;
+}
+
+
+.btnRect .rect2{
+    stroke: #00C2FF;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    transition: 2s ease all;
+}
+
+.btnRect:hover .rect2{
+    stroke-dashoffset: 0;
 }
