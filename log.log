@@ -30,3 +30,5 @@ v1.1.0:
 
 v1.1.1:
 - Animacion agregada en el footer para los botones de redes sociales
+v1.1.2:
+- Funcion en el footer agregada, al hacer click en el logo se te redirigada al a pagina principal

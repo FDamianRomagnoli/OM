@@ -75,6 +75,11 @@ function getHTMLFooter(footerElement){
             })
         })
 
+        const logo = document.querySelector('.footer__logo')
+        logo.addEventListener("click", () =>{
+            location.href = "https://fdamianromagnoli.github.io/OpenMarket-Front"
+        })
+
         sliderRun()
         })
 

@@ -192,6 +192,7 @@
     .footer__logo{
         display: inline-block;
         align-self: center;
+        cursor: pointer;
     }
 }
 
