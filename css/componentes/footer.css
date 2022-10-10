@@ -87,10 +87,18 @@
 }
 
 .footer__social-container img:hover{
-    transform: rotateY(360deg);
-    transition: all 1.5s;
+    transform: scale(1.05);
+
 }
 
+@keyframes socialClick {
+    0%{
+        transform: rotateY(0);
+    }
+    100%{
+        transform: rotateY(360deg);
+    }
+}
 
 
 /* ESTILO PARA EL COPYRIGHT DEL FOOTER */
@@ -164,6 +172,7 @@
     .footer__description .footer__text{
         font-size: 2.1rem;
     }
+
 }
 
 @media(min-width: 1800px){

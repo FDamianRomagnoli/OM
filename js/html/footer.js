@@ -66,12 +66,24 @@ function getHTMLFooter(footerElement){
         const imgs = document.querySelectorAll('.footer__social img')
         Array.from(imgs).forEach(img => {
             img.addEventListener("click", () =>{
-                window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+                setAnimation(img, "socialClick", ".6s", "linear")
+                setTimeout(()=>{
+                    window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+                    img.style.animation = "none"
+                },500)
+                
             })
         })
 
         sliderRun()
         })
+
+}
+
+function setAnimation(element, nameAnimation, duration, functionAnimation){
+    element.style.animationName = nameAnimation
+    element.style.animationDuration = duration
+    element.style.animationTimingFunction = functionAnimation
 
 }
 

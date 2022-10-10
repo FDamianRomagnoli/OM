@@ -27,3 +27,6 @@ v1.0.1:
 v1.1.0:
 - Nuevo diseño del footer totalmente responsive
 - Agregado un carrusel de marcas de tecnologia (es parte del footer)
+
+v1.1.1:
+- Animacion agregada en el footer para los botones de redes sociales
