@@ -1,23 +1,31 @@
+import { CounterPage } from "../libs/CounterPage.js"
+
 const contenedorProducto = document.querySelector(".product-container");
 const cartelProductoNoEncontrados = contenedorProducto.nextElementSibling;
 const loading = document.querySelector('.loading');
-const inputSearch = document.querySelector('.inputSearch');
 const contenedorResultadosEncontrados = document.querySelector(".products h3");
 const resultadosEncontrados = contenedorResultadosEncontrados.firstElementChild;
 const optionSort = document.querySelector(".sort");
 const btnFiltro = document.querySelector(".filter");
 const btnFiltroExit = document.querySelector(".filters-exit");
 const btnClean = document.querySelector(".filter-button-clean");
-const btnSearch = inputSearch.nextElementSibling;
 const checkboxAll = document.querySelectorAll("[type='checkbox']");
 const formFiltros = document.filters;
 
+
+let counterPage = new CounterPage('.btn-page-next','.btn-page-back','.page-num')
+
+const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
 
 let formularioFiltro = false;
 let checkFiltrosMarca = [];
 let checkFiltrosProducto = [];
 
 let checkGuardados  = obtenerValoresCheckbox();
+
+
 
 
 function main(){
@@ -27,30 +35,17 @@ function main(){
     .then(myJson => {
 
         actualizarProductos(myJson);
-
         optionSort.addEventListener("change", () => actualizarProductos(myJson));
-
-        inputSearch.addEventListener("change", () => {
-            limpiarSelector();
-            actualizarProductos(myJson);
-        });
-
-        btnSearch.addEventListener("change", () => {
-            limpiarSelector();
-            actualizarProductos(myJson);
-        });
-
-        pageSelection.btnAtras.addEventListener("click", () => actualizarProductos(myJson));
-
-        pageSelection.btnSiguiente.addEventListener("click", () => actualizarProductos(myJson));
+        counterPage.btnBack.addEventListener('click', () => actualizarProductos(myJson))
+        counterPage.btnNext.addEventListener('click', () => actualizarProductos(myJson))
 
         formFiltros.addEventListener("submit", event => {
-            event.preventDefault(); //Evita recargar la pagina con el envio del formulario
+            event.preventDefault(); 
+            counterPage.reset()
             checkGuardados  = obtenerValoresCheckbox();
             const formData = new FormData(event.currentTarget);
             checkFiltrosMarca = formData.getAll('filter-brand');
             checkFiltrosProducto = formData.getAll('filter-product');
-            limpiarSelector();
             actualizarProductos(myJson);
             vistaFormulario();
         })
@@ -80,10 +75,13 @@ function main(){
 function actualizarProductos(lista){
 
     let listaFiltrada = filtrarPorCheckbox(lista);
-    listaFiltrada = buscarCoincidencia(inputSearch.value, listaFiltrada);
+    let listaDePalabras = params.search != null ? params.search : ""
+    listaFiltrada = buscarCoincidencia(listaDePalabras, listaFiltrada);
     let cantidadDeResultados = listaFiltrada.length;
-    setearNumeroMaximoPaginas(cantidadDeResultados);
-    actualizarBotones();
+
+    let maxPage = getMaxNumberPage(cantidadDeResultados)
+
+    counterPage.refresh(maxPage)
 
     ocultarElementosPrincipales(); //Oculta todos los elementos para mostrar la animacion de carga
     mostrarLoading(); // Muestra el contenedor que posee la animacion  de carga
@@ -127,9 +125,8 @@ function mostrarCoincidencias(longitudLista){
     eliminarDisplayHTML(cartelProductoNoEncontrados);
 }
 
-function setearNumeroMaximoPaginas(longitudLista){
-   let paginaMax = Math.trunc((longitudLista / 10)) + 1;
-   pageSelection.maximo = paginaMax;
+function getMaxNumberPage(longitudLista){
+   return Math.trunc((longitudLista / 10)) + 1;
 }
 
 
@@ -159,7 +156,7 @@ function procesarProductos(lista){
 
     let listaOrdenada = ordenarLista(lista, sortValue);
 
-    let listaPorPagina = filtrarListaPorPagina(listaOrdenada, pageSelection.contador);
+    let listaPorPagina = filtrarListaPorPagina(listaOrdenada, counterPage.getPage());
 
     let html = "";
 
@@ -185,7 +182,7 @@ function ordenarLista(lista, valueSort){
 }
 
 function buscarCoincidencia(palabras, lista){
-    listaDePalabras = palabras.trim().split(" ");
+    let listaDePalabras = palabras.trim().split(" ");
 
     let nuevaLista =  lista.filter(product => { 
         return contienePalabra(product["title"],listaDePalabras,product["brand"],product["product"]);
@@ -271,7 +268,6 @@ function ocultarLoading(){
 
 
 function ocultarElementosPrincipales(){
-    desaparecerElementoHTML(pageSelection.contenedor);
     desaparecerElementoHTML(contenedorResultadosEncontrados);
     eliminarDisplayHTML(cartelProductoNoEncontrados);
     eliminarDisplayHTML(contenedorProducto);
@@ -279,7 +275,6 @@ function ocultarElementosPrincipales(){
 
 function aparecerElementosPrincipales(longitudLista){
     agregarDisplayHTML(contenedorProducto, "grid");
-    aparecerElementoHTML(pageSelection.contenedor);
     aparecerElementoHTML(contenedorResultadosEncontrados);
     mostrarCoincidencias(longitudLista);
 }
@@ -300,5 +295,6 @@ function eliminarDisplayHTML(elemento){
 function agregarDisplayHTML(elemento, tipo){
     elemento.style.display = tipo;
 }
+
 
 main();

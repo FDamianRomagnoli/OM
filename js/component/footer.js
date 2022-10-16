@@ -47,11 +47,11 @@ function getHTMLFooter(footerElement){
                 <div class="footer__help">
                     <span class="footer__title">Ayuda</span>
                     <span class="footer__text">Si tenés alguna duda o sugerencia</span>
-                    <button class="btnRect">
-                        <span class="btn__text">CONTACTANOS</span>
-                        <svg>
-                            <rect class="rect1" x="0" y="0" fill="none"></rect>
-                            <rect class="rect2" x="0" y="0" fill="none"></rect>
+                    <button class="button-rect footer-button-rect">
+                        <span class="button-rect-text footer__title">CONTACTANOS</span>
+                        <svg class="button-rect-svg">
+                            <rect class="button-rect-svg-rect1"  fill="none"></rect>
+                            <rect class="button-rect-svg-rect2"  fill="none"></rect>
                         </svg>
                     </button>
                 </div>
@@ -62,6 +62,12 @@ function getHTMLFooter(footerElement){
                 @ Copyright Open Marker 2022
             </section>
         `
+
+        document.querySelector('.footer-button-rect').addEventListener('click', () => {
+            setTimeout(() => {
+                location.href = './index.html'
+            }, 800)
+        })
 
         const imgs = document.querySelectorAll('.footer__social img')
         Array.from(imgs).forEach(img => {

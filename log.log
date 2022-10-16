@@ -34,3 +34,16 @@ v1.1.2:
 - Funcion en el footer agregada, al hacer click en el logo se te redirigada al a pagina principal
 v1.1.3:
 - Arreglado bug visual del boton del footer para navegadores firefox
+
+v2.0.0 (16/10/2022):
+- Nuevo diseño del header para escritorio
+- Funcionalidad agregada en el buscador, atraves de un Query String se puede buscar productos en particular desde
+cualquier pagina
+- Codigo mas limpio usando modulos de javascript: footer.js header.js product.js 
+- buttonRect.css : Es un archivo que simplifica el uso y la implementacion de los botones recuadrados de una recta svg
+haciendo un efecto visual mas llamativo
+- common.css : Antes se llamaba normalize.css, para no confundirlo con el original se le cambio el nombre, este archivo
+contiene los estilos comun en varios CSS, como variables CSS y limpieza de los estilos originales.
+- js/libs : Contiene "librerias" realizadas por nosotros, no son de terceros.
+
+

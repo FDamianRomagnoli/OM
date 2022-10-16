@@ -7,44 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open Market</title>
     <link rel="icon" href="img/logo-icon.svg">
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/componentes/header.css">
     <link rel="stylesheet" href="css/componentes/footer.css">
     <link rel="stylesheet" href="css/paginas/products.css">
+    <link rel="stylesheet" href="css/componentes/buttonRect.css">
 </head>
 
 <body>
 
-    <header class="header">
-
-        <picture>
-            <img src="./img/logo.png" alt="Logo de la empresa" class="header__logo" width="63" height="33">
-        </picture>
-
-        <div class="inputSearch-container">
-            <input type="text" class="inputSearch" placeholder="Buscar productos ...">
-            <button class="inputSearch-icon"></button>
-        </div>
-
-        <div class="mobile__button"></div>
-
-        <nav class="nav__mobile">
-            <ul>
-                <li><a href="./index.html"><img src="img/font-home.svg" alt="icono de inicio">Inicio</a></li>
-                <li><a href=""><img src="img/font-login.svg" alt="icono de inicio de sesion">Ingresar</a></li>
-                <li><a href=""><img src="img/font-register.svg" alt="icono de registro">Registrarse</a></li>
-                <li><a href="./products.html"><img src="img/font-category.svg" alt="icono de categorias">Categorias</a></li>
-                <li><a href="./carrito.html"><img src="img/font-car.svg" alt="icono del carrito">Carrito</a></li>
-                <li><a href=""><img src="img/font-his.svg" alt="icono del historial">Historial</a></li>
-                <li><a href=""><img src="img/font-contact.svg" alt="icono de contacto">Contacto</a></li>
-            </ul>
-            <div class="nav__logo-container">
-                <img src="./img/logo.png" alt="Logo de la empresa">
-            </div>
-        </nav>
-        <div class="nav__opacity"></div>
-
-    </header>
+    <header class="header"></header>
 
     <main id="main">
     
@@ -110,6 +82,7 @@
 
         <section class="products">
             <h3>Resultados encontrados: <span> </span></h3>
+            
             <div class="product-container">
 
             </div>
@@ -123,27 +96,25 @@
                 <div class="loading-fill"></div>
             </div>
 
+            <section class="page">
+                <button class="btn-page-back">< Anterior</button>
+                <div type="text" class="page-num"></div>
+                <button class="btn-page-next">Siguiente ></button>
+            </section>
+
         </section>
 
-        <section class="page">
-            <button class="page-back">< Anterior</button>
-            <div class="page-num">1</div>
-            <button class="page-next">Siguiente ></button>
-        </section>
 
     </main>
 
 
-    <footer id="footer">
-        
-    </footer>
+    <footer id="footer"></footer>
 
 
-    <script src="js/numPage.js" ></script>
-    <script src="js/navMobile.js"></script>
-    <script src="js/product.js"></script>
-    <script src="js/search.js"></script>
-    <script type="module" src="./js/html/footer.js"></script>
+    <script type="module" src="./js/component/header.js"></script>
+    <script type="module" src="./js/component/footer.js"></script>
+    <script type="module" src="./js/component/product.js"></script>
+    
 
 
 </body>

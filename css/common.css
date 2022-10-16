@@ -6,6 +6,10 @@
     font-family: sansProBold;
     src: url(./fonts/sourcesanspro/SourceSansPro-Bold.ttf);
 }
+@font-face {
+    font-family: interRegular;
+    src: url(./fonts/inter/Inter-Regular.ttf);
+}
 
 * {
     margin: 0;
@@ -107,61 +111,5 @@ input{
     100%{
         transform: rotate(720deg);
     }
-}
-
-
-.btnRect{
-    background-color: transparent;
-    position: relative;
-    min-width: 220px;
-    max-width: 240px;
-    height: 45px;
-    border-radius: 0;
-}
-
-.btnRect:hover{
-    background-color: transparent;
-}
-
-.btn__text{
-    height: 100%;
-    color: #FFFFFF;
-    font-family: sansProBold;
-    font-size: 26px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.btnRect svg, .btnRect .rect1, .btnRect .rect2{
-    height: 45px;
-    width: 100%;
-}
-
-.btnRect .rect1, .btnRect .rect2{
-    stroke-width: 8px;
-}
-
-.btnRect svg{
-    position: absolute;
-    top: 0;
-    left: 0;
-    fill: transparent;
-}
-
-.btnRect .rect1{
-    stroke: #FFF;
-}
-
-
-.btnRect .rect2{
-    stroke: #00C2FF;
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    transition: 2s ease all;
-}
-
-.btnRect:focus .rect2{
-    stroke-dashoffset: 0;
 }
 

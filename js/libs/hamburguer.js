@@ -1,28 +1,26 @@
-const nav = document.querySelector(".nav__mobile");
-const btnHam = document.querySelector(".mobile__button");
-const opacity = document.querySelector(".nav__opacity");
-
-btnHam.innerHTML = `
-    <i></i>
-    <i></i>
-    <i></i>
-`;
-const btnIcon = document.querySelectorAll(".mobile__button i");
 let btnActivate = true;
 
-function main(){
+export function startButtonHamburguer(nav, btnHam, opacity){
+
+    btnHam.innerHTML = `
+    <i></i>
+    <i></i>
+    <i></i>
+    `
+
+    const btnIcon = document.querySelectorAll(".mobile__button i");
 
     btnHam.addEventListener("click", () =>{
         if(btnActivate){
             nav.style.transitionTimingFunction = "ease-in-out";
             nav.style.right = "0px";
-            transformX();
+            transformX(btnIcon);
             opacity.style.display = "block";
         }
         else{
             nav.style.transitionTimingFunction = "ease-in";
             nav.style.right = "-400px";
-            transformHam();
+            transformHam(btnIcon);
             opacity.style.display = "none";
         }
 
@@ -33,7 +31,7 @@ function main(){
         if(!btnActivate){
             nav.style.transitionTimingFunction = "ease-in";
             nav.style.right = "-400px";
-            transformHam();
+            transformHam(btnIcon);
             opacity.style.display = "none";
         }
 
@@ -44,7 +42,7 @@ function main(){
 
 
 
-function transformX(){
+function transformX(btnIcon){
     btnIcon[1].style.transition = "all 0s";
 
     btnIcon[0].style.transform = "translate(0, 15.4px) rotate(45deg)";
@@ -52,7 +50,7 @@ function transformX(){
     btnIcon[2].style.transform = "translate(0, -12.4px) rotate(-45deg)";
 }
 
-function transformHam(){
+function transformHam(btnIcon){
     btnIcon[1].style.transition = "all .2s";
     btnIcon[1].style.transitionTimingFunction = "step-end";
 
@@ -60,6 +58,3 @@ function transformHam(){
     btnIcon[1].style.transform = "none";
     btnIcon[2].style.transform = "none";
 }
-
-
-main();
