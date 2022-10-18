@@ -18,6 +18,7 @@
 
     <header class="header"></header>
 
+
     <main id="main">
     
         <section class="setting-container">
@@ -30,7 +31,7 @@
 
             <div class="filter-container">
                 <div class="filter">Filtro</div>
-                <form name="filters" action="./products.html" method="GET">
+                <form name="filters">
                     <button class="filters-exit" type="button"></button>
                     <section class="filter-products">
                         <h3>Productos</h3>
@@ -80,27 +81,39 @@
             </div>
         </section>
 
-        <section class="products">
-            <h3>Resultados encontrados: <span> </span></h3>
-            
-            <div class="product-container">
 
-            </div>
+        <aside class="products-aside">Celulares Liberados<span class="products-aside-div">|</span>
+            Tu proximo smartphone en Open Market</aside>
 
-            <div class="product-zero">
-                <h2>¡Ups!</h2>
-                <p>No encontramos lo que buscas...</p>
-            </div>
+        <section class="products-container">
 
-            <div class="loading">
-                <div class="loading-fill"></div>
-            </div>
+            <section class="setting-container-desktop">
 
-            <section class="page">
-                <button class="btn-page-back">< Anterior</button>
-                <div type="text" class="page-num"></div>
-                <button class="btn-page-next">Siguiente ></button>
             </section>
+
+            <section class="products">
+
+                <h3>Resultados encontrados: <span> </span></h3>
+            
+                <div class="product-container"></div>
+    
+                <div class="product-zero">
+                    <h2>¡Ups!</h2>
+                    <p>No encontramos lo que buscas...</p>
+                </div>
+    
+                <div class="loading">
+                    <div class="loading-fill"></div>
+                </div>
+    
+                <section class="page">
+                    <button class="btn-page-back">< Anterior</button>
+                    <div type="text" class="page-num"></div>
+                    <button class="btn-page-next">Siguiente ></button>
+                </section>
+
+            </section>
+
 
         </section>
 
@@ -114,7 +127,7 @@
     <script type="module" src="./js/component/header.js"></script>
     <script type="module" src="./js/component/footer.js"></script>
     <script type="module" src="./js/component/product.js"></script>
-    
+    <!-- <script type="module" src="./js/component/prueba.js"></script> -->
 
 
 </body>

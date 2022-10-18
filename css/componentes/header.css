@@ -1,3 +1,7 @@
+.header{
+    user-select: none;
+}
+
 .main__header {
     position: fixed;
     display: flex;
@@ -228,6 +232,7 @@
         width: 95px;
         height: 53px;
         margin-right: 10px;
+        flex-grow: 2;
     }
 
     .inputSearch{
@@ -248,4 +253,30 @@
     }
 
 
+}
+
+
+/* ESTILO CARRITO */
+
+.header-shopping-cart{
+    position: relative;
+    cursor: pointer;
+}
+
+.header-shopping-cart-counter{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 19px;
+    height: 19px;
+    background-color: rgb(255, 120, 30);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    right: -10px;
+    top: -10px;
+    border-radius: 50px;
+    color: #FFF;
+    font-family: interBold;
+    font-size: 15px;
+    padding: 0px 3px;
 }

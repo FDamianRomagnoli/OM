@@ -4,6 +4,7 @@
 
 #footer{
     color: var(--text-color);
+    user-select: none;
 }
 
 /* ESTILO PARA EL CARRUSEL DE MARCAS */

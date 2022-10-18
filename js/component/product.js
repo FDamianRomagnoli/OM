@@ -1,4 +1,5 @@
 import { CounterPage } from "../libs/CounterPage.js"
+import { productCardDefine } from "./product-card.js";
 
 const contenedorProducto = document.querySelector(".product-container");
 const cartelProductoNoEncontrados = contenedorProducto.nextElementSibling;
@@ -29,6 +30,8 @@ let checkGuardados  = obtenerValoresCheckbox();
 
 
 function main(){
+
+    productCardDefine()
 
     fetch('./json/products.json')
     .then(response => {return response.json()})
@@ -88,13 +91,14 @@ function actualizarProductos(lista){
 
 
     setTimeout(()=>{
-        contenedorProducto.innerHTML = procesarProductos(listaFiltrada);
+        contenedorProducto.innerHTML = procesarProductos(listaFiltrada); 
         ocultarLoading(); //Oculta el contenedor que posee la animacion de carga
         aparecerElementosPrincipales(cantidadDeResultados); // Aparece los elementos que fueron ocultados
     }, 1000);
 
 
 }
+
 
 function obtenerValoresCheckbox(){
     return [...checkboxAll].map((elemento) =>{
@@ -121,7 +125,7 @@ function mostrarCoincidencias(longitudLista){
         return;
     }
 
-    agregarDisplayHTML(contenedorProducto, "grid");
+    agregarDisplayHTML(contenedorProducto, "grid")
     eliminarDisplayHTML(cartelProductoNoEncontrados);
 }
 
@@ -162,7 +166,15 @@ function procesarProductos(lista){
 
     listaPorPagina.forEach(element => {
         let envioGratis = tieneEnvioGratis(element["price"], 5.000);
-        html = html + crearArticulo(element["title"],element["price"],element["img"],envioGratis);
+        html = html + `
+            <product-card
+                url='${element["img"]}'
+                priceproduct='${element["price"]}'
+                titleproduct='${element["title"]}'
+                idproduct = '${element["id"]}'
+                shipping = ${envioGratis}
+            ></product-card>
+        `
     });
 
     return html;
@@ -210,21 +222,9 @@ function contienePalabra(titulo, palabras, marca, producto){
 }
 
 function tieneEnvioGratis(precio, apartir){
-    return precio > apartir ? `<img class="product-envio" src="./img/envio-gratis.png">` : "";
+    return precio > apartir ? 'true' : 'false'
 }
 
-function crearArticulo(titulo, precio, imagen, envioGratis){
-    return `
-    <article class="product">
-        <figure class="product-image">
-            <img src="${imagen}">
-        </figure>
-        <h3 class="product-title">${titulo.slice(0,40) + "..."}</h3>
-        <p class="product-price">$${precio}</p>
-        ${envioGratis}
-    </article>
-    `;
-}
 
 function vistaFormulario(){
     if(formularioFiltro){
@@ -274,7 +274,8 @@ function ocultarElementosPrincipales(){
 }
 
 function aparecerElementosPrincipales(longitudLista){
-    agregarDisplayHTML(contenedorProducto, "grid");
+    agregarDisplayHTML(contenedorProducto, "flex");
+    console.log(contenedorProducto.style.display)
     aparecerElementoHTML(contenedorResultadosEncontrados);
     mostrarCoincidencias(longitudLista);
 }

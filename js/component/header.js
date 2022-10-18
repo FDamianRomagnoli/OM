@@ -1,8 +1,10 @@
 import {startButtonHamburguer} from '../libs/hamburguer.js'
+import {CarStorage} from '../libs/CarStorage.js'
 
 function main(){
 
     const header = document.querySelector('.header')
+
 
     const params = new Proxy(new URLSearchParams(window.location.search), {
         get: (searchParams, prop) => searchParams.get(prop),
@@ -46,7 +48,9 @@ function main(){
                     </li>
 
                     <li>
-                        <button class="header-shopping-cart"></button>
+                        <button class="header-shopping-cart">
+                            <div class="header-shopping-cart-counter"></div>
+                        </button>
                     </li>
                 </ul>
             </nav>
@@ -112,9 +116,13 @@ function main(){
     btnRegister.addEventListener('click', () => timeOutButton('./index.html'))
     btnLogin.addEventListener('click', () => timeOutButton('./index.html'))
 
+    const carStorage = new CarStorage(document.querySelector('.header-shopping-cart-counter'), 'openMarketCar')
+    carStorage.updateCounter()
 
 
 }
+
+
 
 function timeOutButton(href){
     setTimeout(

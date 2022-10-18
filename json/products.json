@@ -5,7 +5,8 @@
         "img": "./img/products/galaxys22.png",
         "brand" : "Samsung",
         "relevance": 10,
-        "product": "Celular"
+        "product": "Celular",
+        "id": 1
     },
     {
         "title": "Cargador Carga Rapida iPhone Original 20w X 11 12 13 Pro Max",
@@ -13,7 +14,8 @@
         "img": "./img/products/cargador1.png",
         "brand": "IPhone",
         "relevance": 7,
-        "product": "Cargador"
+        "product": "Cargador",
+        "id": 2
     },
     {
         "title": "Xiaomi Redmi Note 8 Dual SIM 64 GB Neptune blue 4 GB RAM",
@@ -21,7 +23,8 @@
         "img": "./img/products/xiaomi1.png",
         "brand": "Xiaomi",
         "relevance": 5,
-        "product": "Celular"
+        "product": "Celular",
+        "id": 3
     },
     {
         "title": "Moto G22 128 GB cosmic black 4 GB RAM",
@@ -29,7 +32,8 @@
         "img": "./img/products/motorola1.png",
         "brand": "Motorola",
         "relevance": 5,
-        "product": "Celular"
+        "product": "Celular",
+        "id": 4
     },
     {
         "title": "Motorola Edge 20 Lite 128 GB verde 6 GB RAM",
@@ -37,15 +41,17 @@
         "img": "./img/products/motorola2.png",
         "brand": "Motorola",
         "relevance": 8,
-        "product": "Celular"
+        "product": "Celular",
+        "id": 5
     },
     {
-        "title": "iPhone 8 64 GB oro",
+        "title": "iPhone 8 64 GB oro 2 GB RAM Pantalla IPS 4.7\"",
         "price": "139.999",
         "img": "./img/products/iphone1.png",
         "brand": "IPhone",
         "relevance": 6,
-        "product": "Celular"
+        "product": "Celular",
+        "id": 6
     },
     {
         "title": "Apple iPhone 11 (64 GB) - Negro",
@@ -53,7 +59,8 @@
         "img": "./img/products/iphone2.png",
         "brand": "IPhone",
         "relevance": 8,
-        "product": "Celular"
+        "product": "Celular",
+        "id": 7
     },
     {
         "title": "Cargador Samsung Original Carga Rápida Fast Charge Micro Usb",
@@ -61,7 +68,8 @@
         "img": "./img/products/cargador2.png",
         "brand": "Samsung",
         "relevance": 6,
-        "product": "Cargador"
+        "product": "Cargador",
+        "id": 8
     },
     {
         "title": "Huawei Mate 30 Pro 256 GB púrpura cósmico 8 GB RAM",
@@ -69,7 +77,8 @@
         "img": "./img/products/huawei1.png",
         "brand": "Huawei",
         "relevance": 10,
-        "product": "Celular"
+        "product": "Celular",
+        "id": 9
     },
     {
         "title": "Apple AirPods con estuche de carga - Blanco",
@@ -77,7 +86,8 @@
         "img": "./img/products/auricular1.png",
         "brand": "IPhone",
         "relevance": 6,
-        "product": "Auricular"
+        "product": "Auricular",
+        "id": 10
     },
     {
         "title": "Auriculares in-ear inalámbricos Samsung Galaxy Buds Live mystic black",
@@ -85,6 +95,7 @@
         "img": "./img/products/auricular2.png",
         "brand": "Samsung",
         "relevance": 7,
-        "product": "Auricular"
+        "product": "Auricular",
+        "id": 11
     }
 ]

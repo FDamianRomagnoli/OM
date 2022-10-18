@@ -1,4 +1,8 @@
 @font-face {
+    font-family: sansProLight;
+    src: url(./fonts/sourcesanspro/SourceSansPro-Light.ttf);
+}
+@font-face {
     font-family: sansProRegular;
     src: url(./fonts/sourcesanspro/SourceSansPro-Regular.ttf);
 }
@@ -7,8 +11,20 @@
     src: url(./fonts/sourcesanspro/SourceSansPro-Bold.ttf);
 }
 @font-face {
+    font-family: interLight;
+    src: url(./fonts/inter/Inter-Light.ttf);
+}
+@font-face {
     font-family: interRegular;
     src: url(./fonts/inter/Inter-Regular.ttf);
+}
+@font-face {
+    font-family: interBold;
+    src: url(./fonts/inter/Inter-Bold.ttf);
+}
+@font-face {
+    font-family: ralewayBold;
+    src: url(./fonts/raleway/Raleway-Bold.ttf);
 }
 
 * {
@@ -61,10 +77,6 @@ button{
     border-radius: 5px;
 }
 
-button:active{
-    background-color: #395497;
-}
-
 button,input{
     border: none;
     outline: none;
@@ -74,9 +86,6 @@ input{
     background-color: var(--input-bg-color);
 }
 
-*{
-    user-select: none;
-}
 
 .loading{
     margin: 100px auto;
