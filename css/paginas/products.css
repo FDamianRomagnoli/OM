@@ -373,8 +373,12 @@
     }
 
     #form-filter{
-        /* max-width: 350px; */
+        width: 30%;
         margin: 0;
+    }
+
+    .products{
+        width: 70%;
     }
 
     #resultsFound{
