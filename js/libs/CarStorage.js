@@ -23,7 +23,6 @@ export class CarStorage{
             }
             
             this.updateCounter()
-            console.log(this.getData())
         }
     }
 

@@ -241,3 +241,15 @@ export function productCardDefine(){
     customElements.define("product-card", productCard);
 }
 
+export function createProductCard(product){
+    let envioGratis = product["price"] > 5.000 ? true : false
+    return `
+        <product-card
+            url='${product["img"]}'
+            priceproduct='${product["price"]}'
+            titleproduct='${product["title"]}'
+            idproduct = '${product["id"]}'
+            shipping = ${envioGratis}
+        ></product-card>
+    `
+}

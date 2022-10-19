@@ -1,301 +1,191 @@
 import { CounterPage } from "../libs/CounterPage.js"
-import { productCardDefine } from "./product-card.js";
+import { productCardDefine, createProductCard } from "./product-card.js"
+import {DriverElement} from '../libs/DriverElement.js'
 
-const contenedorProducto = document.querySelector(".product-container");
-const cartelProductoNoEncontrados = contenedorProducto.nextElementSibling;
-const loading = document.querySelector('.loading');
-const contenedorResultadosEncontrados = document.querySelector(".products h3");
-const resultadosEncontrados = contenedorResultadosEncontrados.firstElementChild;
-const optionSort = document.querySelector(".sort");
-const btnFiltro = document.querySelector(".filter");
-const btnFiltroExit = document.querySelector(".filters-exit");
-const btnClean = document.querySelector(".filter-button-clean");
-const checkboxAll = document.querySelectorAll("[type='checkbox']");
-const formFiltros = document.filters;
-
-
-let counterPage = new CounterPage('.btn-page-next','.btn-page-back','.page-num')
-
-const params = new Proxy(new URLSearchParams(window.location.search), {
-    get: (searchParams, prop) => searchParams.get(prop),
-  });
-
-let formularioFiltro = false;
-let checkFiltrosMarca = [];
-let checkFiltrosProducto = [];
-
-let checkGuardados  = obtenerValoresCheckbox();
-
-
-
-
-function main(){
-
-    productCardDefine()
-
+function reload(){
     fetch('./json/products.json')
     .then(response => {return response.json()})
-    .then(myJson => {
+    .then(listProduct => processProducts(listProduct))
+}
 
-        actualizarProductos(myJson);
-        optionSort.addEventListener("change", () => actualizarProductos(myJson));
-        counterPage.btnBack.addEventListener('click', () => actualizarProductos(myJson))
-        counterPage.btnNext.addEventListener('click', () => actualizarProductos(myJson))
+function processProducts(listProducts){
 
-        formFiltros.addEventListener("submit", event => {
-            event.preventDefault(); 
-            counterPage.reset()
-            checkGuardados  = obtenerValoresCheckbox();
-            const formData = new FormData(event.currentTarget);
-            checkFiltrosMarca = formData.getAll('filter-brand');
-            checkFiltrosProducto = formData.getAll('filter-product');
-            actualizarProductos(myJson);
-            vistaFormulario();
-        })
+    listProducts = filterProductsOfSetting(listProducts)
 
-        btnClean.addEventListener("click", () => { 
-            formFiltros.reset();
-            checkGuardados  = obtenerValoresCheckbox();
-        });
+    listProducts = sortingProductsOfSetting(listProducts)
 
-    });
+    pagination.setMaxPageOfResults(listProducts.length)
+    //DOM
+    setTimeout(() => containerProduct.cleanHTML(), 300)
+    setTimeout(() => {
+        if(listProducts.length == 0){
+            productZero.setDisplay("flex")
+            containerProduct.stopDisplay()
+            resultsFound.replaceHTML(`Nada por aqui..`)
+        }else{
+            productZero.stopDisplay()
+            containerProduct.returnDisplay()
+            insertProducts(listProducts, containerProduct)
+            resultsFound.replaceHTML(`Resultados encontrados: <span class="number-text">${listProducts.length}</span>`)
+        }
+
+        resultsFound.showDisplay()
 
 
-
-    btnFiltroExit.addEventListener("click", () => {
-
-        checkboxAll.forEach((elemento,index) => {
-            elemento.checked = checkGuardados[index];
-        })
-    
-        vistaFormulario();
-    });
-
-    btnFiltro.addEventListener("click", () => vistaFormulario());
+    }, 800)
 
 }
 
-function actualizarProductos(lista){
+function filterProductsOfSetting(listProducts){
+    let queryStringSearch = setting.getQueryString()
+    let brandFilters = setting.getFilter("brand")
+    let productFilters = setting.getFilter("product")
 
-    let listaFiltrada = filtrarPorCheckbox(lista);
-    let listaDePalabras = params.search != null ? params.search : ""
-    listaFiltrada = buscarCoincidencia(listaDePalabras, listaFiltrada);
-    let cantidadDeResultados = listaFiltrada.length;
-
-    let maxPage = getMaxNumberPage(cantidadDeResultados)
-
-    counterPage.refresh(maxPage)
-
-    ocultarElementosPrincipales(); //Oculta todos los elementos para mostrar la animacion de carga
-    mostrarLoading(); // Muestra el contenedor que posee la animacion  de carga
-
-
-    setTimeout(()=>{
-        contenedorProducto.innerHTML = procesarProductos(listaFiltrada); 
-        ocultarLoading(); //Oculta el contenedor que posee la animacion de carga
-        aparecerElementosPrincipales(cantidadDeResultados); // Aparece los elementos que fueron ocultados
-    }, 1000);
-
-
+    listProducts = queryStringSearch != false ? findReferences(listProducts, queryStringSearch) : listProducts
+    listProducts = brandFilters != false ? filterList(listProducts, "brand", brandFilters) : listProducts
+    listProducts = productFilters != false ? filterList(listProducts, "product", productFilters) : listProducts
+    return listProducts
 }
 
+function sortingProductsOfSetting(listProducts){
+    return listProducts.sort(setting.getFunctionSorting())
+}
 
-function obtenerValoresCheckbox(){
-    return [...checkboxAll].map((elemento) =>{
-        return elemento.checked;
+function insertProducts(listProducts, containerProduct){
+    listProducts.forEach((product,index) => {
+        if(index >= (pagination.getPage() - 1) * 10 && index <= (pagination.getPage() * 10) - 1 ){
+            containerProduct.insertHTML(createProductCard(product))
+        }
     });
 }
 
-
-function filtrarListaPorPagina(lista, numeroDePagina){
-
-    let desde = numeroDePagina * 10 - 10;
-    let hasta = numeroDePagina * 10;
-    return lista.slice(desde,hasta); //Corto el Array para mostrar 10 articulos por pagina
-
+function filterList(listProduct, key, tokenFilter){
+    return listProduct.filter(product => {
+        return tokenFilter.includes(product[key])
+    })
 }
 
 
-function mostrarCoincidencias(longitudLista){
-    resultadosEncontrados.innerHTML = longitudLista;
-
-    if(longitudLista == 0){
-        agregarDisplayHTML(cartelProductoNoEncontrados, "flex");
-        eliminarDisplayHTML(contenedorProducto);
-        return;
-    }
-
-    agregarDisplayHTML(contenedorProducto, "grid")
-    eliminarDisplayHTML(cartelProductoNoEncontrados);
+function findReferences(listProduct, querys){
+    querys = querys.toLowerCase().split(" ")
+    return listProduct.filter(product => {
+        return contentQuery(product, querys)
+    })
 }
 
-function getMaxNumberPage(longitudLista){
-   return Math.trunc((longitudLista / 10)) + 1;
-}
-
-
-function filtrarPorCheckbox(lista){
-    lista = filtrarPor(lista,"brand",checkFiltrosMarca);
-    lista = filtrarPor(lista,"product",checkFiltrosProducto);
-    return lista;
-}
-
-
-
-
-function filtrarPor(lista, key, listaFiltros){
-
-    return listaFiltros == 0 ? lista : lista.filter(producto => {
-        return listaFiltros.includes(producto[key]);
-    });
-
-}
-
-
-
-
-function procesarProductos(lista){
-
-    let sortValue = optionSort.options[optionSort.selectedIndex].value;
-
-    let listaOrdenada = ordenarLista(lista, sortValue);
-
-    let listaPorPagina = filtrarListaPorPagina(listaOrdenada, counterPage.getPage());
-
-    let html = "";
-
-    listaPorPagina.forEach(element => {
-        let envioGratis = tieneEnvioGratis(element["price"], 5.000);
-        html = html + `
-            <product-card
-                url='${element["img"]}'
-                priceproduct='${element["price"]}'
-                titleproduct='${element["title"]}'
-                idproduct = '${element["id"]}'
-                shipping = ${envioGratis}
-            ></product-card>
-        `
-    });
-
-    return html;
-
-}
-
-
-function ordenarLista(lista, valueSort){
-    switch(valueSort){
-        case "1":
-            return lista.sort((a,b) => {return b["relevance"] - a["relevance"]});
-        case "2":
-            return lista.sort((a,b) => {return b["price"] - a["price"]});
-        case "3":
-            return lista.sort((a,b) => {return a["price"] - b["price"]});
-    }
-}
-
-function buscarCoincidencia(palabras, lista){
-    let listaDePalabras = palabras.trim().split(" ");
-
-    let nuevaLista =  lista.filter(product => { 
-        return contienePalabra(product["title"],listaDePalabras,product["brand"],product["product"]);
-    });
-
-    return nuevaLista;
-}
-
-function contienePalabra(titulo, palabras, marca, producto){
+function contentQuery(product, querys){
 
     let coincidencia = false;
 
-    titulo = titulo.toLowerCase();
-    producto = producto.toLowerCase();
+    let title = product["title"].toLowerCase()
+    let brand = product["brand"].toLowerCase()
 
-    palabras = palabras.map(palabra => palabra.toLowerCase());
 
-    palabras.forEach(palabra => {
-        if(palabra != " " && (titulo.includes(palabra) || marca.includes(palabra) || producto.includes(palabra))){
+    querys.forEach(query => {
+        if(query != " " && (title.includes(query) || brand.includes(query))){
             coincidencia = true;
         }
-    });
+    })
 
     return coincidencia;
 }
 
-function tieneEnvioGratis(precio, apartir){
-    return precio > apartir ? 'true' : 'false'
-}
+/* DE AQUI PARA ABAJO SOLO HAY DECLARACIÓN DE VARIABLES Y CONSTANTES DE CONFIGURACIÓN */ 
 
 
-function vistaFormulario(){
-    if(formularioFiltro){
-        iniciarAnimacion(formFiltros, "aparecer", "reverse");
+/* SETTING ES UN OBJETO CON EL FIN DE FACILITAR FILTRAR LA LISTA JSON DE PRODUCTOS */
 
-        setTimeout(() => {
-            eliminarAnimacion(formFiltros);
-            eliminarDisplayHTML(formFiltros);
-        },270);
-
-    }else{
-        agregarDisplayHTML(formFiltros, "grid");
-        iniciarAnimacion(formFiltros, "aparecer", "normal");
-
-        setTimeout(() => {
-            eliminarAnimacion(formFiltros);
-        },270);
-        
+const setting = {
+    getQueryString : () => {
+        const params = new URLSearchParams(window.location.search)
+        let getQuery = params.get('search')
+        return getQuery == null || getQuery.trim() == "" ?  false : getQuery.trim()
+    },
+    getPage : () => {
+        pagination.getPage()
+    },
+    getFilter : (key) => {
+        if(filtersForm[key] != undefined && filtersForm[key].length != 0){
+            return filtersForm[key]
+        }else{
+            return false
+        }
+    },
+    sort : 0,
+    setSort : newValue => { setting.sort = newValue },
+    getFunctionSorting : () => {
+        switch(setting.sort){
+            case 0:
+                return (a,b) => {return b["relevance"] - a["relevance"]}
+            case 1:
+                return (a,b) => {return b["price"] - a["price"]}
+            case 2:
+                return (a,b) => {return a["price"] - b["price"]}
+        }
     }
-
-    formularioFiltro = !formularioFiltro;
-}
-
-function iniciarAnimacion(elemento, nombreAnimacion, direccion){
-    elemento.style.animationDirection = direccion;
-    elemento.style.animationName = nombreAnimacion;
-    elemento.style.animationIterationCount = "1";
-}
-
-function eliminarAnimacion(elemento){
-    elemento.style.animationName = "none";
-}
-
-function mostrarLoading(){
-    agregarDisplayHTML(loading, "flex");
-}
-
-function ocultarLoading(){
-    eliminarDisplayHTML(loading);
 }
 
 
-function ocultarElementosPrincipales(){
-    desaparecerElementoHTML(contenedorResultadosEncontrados);
-    eliminarDisplayHTML(cartelProductoNoEncontrados);
-    eliminarDisplayHTML(contenedorProducto);
+
+/* ELEMENTOS DE PAGINACION */
+const paginationButtonNext = new DriverElement('.btn-page-next')
+const paginationButtonBack = new DriverElement('.btn-page-back')
+const pagination = new CounterPage(paginationButtonNext.elementHTML,paginationButtonBack.elementHTML,'.page-num')
+
+/* ELEMENTOS FORMULARIO*/
+const settingFilterButton = new DriverElement('.setting-filter')
+const filtersForm = new DriverElement('[name="product-filter"]')
+const buttonCloseForm = new DriverElement('.product-filter-close')
+const selectorSortMobile = new DriverElement('.setting-container .setting-sort')
+const selectorSortDesktop = new DriverElement('#form-filter .setting-sort')
+
+/* ELEMENTOS INFORMATIVOS */
+const containerProduct = new DriverElement('.product-container')
+const resultsFound = new DriverElement('#resultsFound')
+const productZero = new DriverElement('.product-zero')
+
+/* EVENTOS DE PAGINACION */
+paginationButtonNext.onEvent(() => reload())
+paginationButtonBack.onEvent(() => reload())
+
+/* EVENTOS DE FORMULARIO */
+settingFilterButton.onEvent(() => {
+    filtersForm.setDisplay("flex");
+})
+buttonCloseForm.onEvent( () => {
+    filtersForm.setDisplay("none")
+})
+filtersForm.onEvent((e) =>{
+        e.preventDefault()
+        pagination.reset()
+        let formData = new FormData(e.currentTarget)
+        document.body.clientWidth < 768 ? filtersForm.setDisplay("none") : null
+        filtersForm["brand"] = formData.getAll('brand')
+        filtersForm["product"] = formData.getAll('product')
+        setTimeout(() => {
+            resultsFound.hideDisplay()
+            productZero.stopDisplay()
+            containerProduct.returnDisplay()
+        },300)
+        reload()   
+}, 'submit')
+selectorSortMobile.onEvent( () => {
+    setting.setSort(selectorSortMobile.getSelectedIndex())
+    reload()
+}, "change")
+selectorSortDesktop.onEvent( () => {
+    setting.setSort(selectorSortDesktop.getSelectedIndex())
+    reload()
+}, "change")
+
+window.onload = () => {
+    productCardDefine()
+    reload()
 }
 
-function aparecerElementosPrincipales(longitudLista){
-    agregarDisplayHTML(contenedorProducto, "flex");
-    console.log(contenedorProducto.style.display)
-    aparecerElementoHTML(contenedorResultadosEncontrados);
-    mostrarCoincidencias(longitudLista);
-}
 
 
-function desaparecerElementoHTML(elemento){
-    elemento.style.opacity = '0';
-}
-
-function aparecerElementoHTML(elemento){
-    elemento.style.opacity = '1';
-}
-
-function eliminarDisplayHTML(elemento){
-    elemento.style.display = 'none';
-}
-
-function agregarDisplayHTML(elemento, tipo){
-    elemento.style.display = tipo;
-}
 
 
-main();
+
+

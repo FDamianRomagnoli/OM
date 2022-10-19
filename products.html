@@ -23,99 +23,109 @@
     
         <section class="setting-container">
             
-            <select class="sort">
+            <select class="setting-sort">
                 <option value="1">Más relevantes</option>
                 <option value="2">Mayor precio</option>
                 <option value="3">Menor precio</option>
             </select>
 
-            <div class="filter-container">
-                <div class="filter">Filtro</div>
-                <form name="filters">
-                    <button class="filters-exit" type="button"></button>
-                    <section class="filter-products">
-                        <h3>Productos</h3>
-                        <div>
-                            <input type="checkbox" id="check1" name="filter-product" value="Celular">
-                            <label for="check1">Celular</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="check2" name="filter-product" value="Cargador">
-                            <label for="check2">Cargador</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="check3" name="filter-product" value="Auricular">
-                            <label for="check3">Auricular</label>
-                        </div>
-                    </section>
+            <button class="setting-filter">
+                Filtro
+            </button>
 
-                    <section class="filter-brands">
-                        <h3>Marcas</h3>
-                        <div>
-                            <input type="checkbox" id="check4" name="filter-brand" value="Samsung">
-                            <label for="check4">Samsung</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="check5" name="filter-brand" value="Motorola">
-                            <label for="check5">Motorola</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="check6" name="filter-brand" value="Xiaomi">
-                            <label for="check6">Xiaomi</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="check7" name="filter-brand" value="IPhone">
-                            <label for="check7">IPhone</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="check8" name="filter-brand" value="Huawei">
-                            <label for="check8">Huawei</label>
-                        </div>
-                    </section>
-
-                    <section class="filter-button-container">
-                        <button type="button" class="filter-button filter-button-clean">Limpiar</button>
-                        <button class="filter-button">Aplicar</button>
-                    </section>
-                </form>
-            </div>
         </section>
+
+
 
 
         <aside class="products-aside">Celulares Liberados<span class="products-aside-div">|</span>
             Tu proximo smartphone en Open Market</aside>
 
-        <section class="products-container">
-
-            <section class="setting-container-desktop">
-
-            </section>
-
+        <section class="products-main">
             <section class="products">
 
-                <h3>Resultados encontrados: <span> </span></h3>
-            
+                <p id="resultsFound">Resultados encontrados: <span class="number-text"></span></p>
+                
                 <div class="product-container"></div>
-    
+        
                 <div class="product-zero">
                     <h2>¡Ups!</h2>
                     <p>No encontramos lo que buscas...</p>
                 </div>
     
-                <div class="loading">
-                    <div class="loading-fill"></div>
-                </div>
-    
+        
                 <section class="page">
                     <button class="btn-page-back">< Anterior</button>
-                    <div type="text" class="page-num"></div>
+                    <div type="text" class="page-num">1</div>
                     <button class="btn-page-next">Siguiente ></button>
                 </section>
-
+    
             </section>
-
-
+    
+    
+            <form name="product-filter" id="form-filter">
+    
+                <section class="product-filter-sort product-filter-section">
+                    <span class="filters-title">Ordenar por</span>
+                    <select class="setting-sort">
+                        <option value="1">Más relevantes</option>
+                        <option value="2">Mayor precio</option>
+                        <option value="3">Menor precio</option>
+                    </select>
+                </section>
+    
+                <section class="product-filter-section">
+                    <span class="filters-title">Productos</span>
+                    <ul class="product-filter-list">
+                        <li class="product-filter-list-item">
+                            <input type="checkbox" name="product" id="f-p-t" value="Celular">
+                            <label for="f-p-t">Telefonos</label>
+                        </li>
+                        <li class="product-filter-list-item">
+                            <input type="checkbox" name="product" id="f-p-c" value="Cargador">
+                            <label for="f-p-c">Cargadores</label>
+                        </li>
+                        <li class="product-filter-list-item">
+                            <input type="checkbox" name="product" id="f-p-a" value="Auricular">
+                            <label for="f-p-a">Auriculares</label>
+                        </li>
+                    </ul>
+                </section>
+    
+                <section class="product-filter-section">
+                    <span class="filters-title">Marcas</span>
+                    <ul class="product-filter-list">
+                        <li class="product-filter-list-item">
+                            <input type="checkbox" name="brand" id="f-b-s" value="Samsung">
+                            <label for="f-b-s">Samsung</label>
+                        </li>
+                        <li class="product-filter-list-item">
+                            <input type="checkbox" name="brand" id="f-b-m" value="Motorola">
+                            <label for="f-b-m">Motorola</label>
+                        </li>
+                        <li class="product-filter-list-item">
+                            <input type="checkbox" name="brand" id="f-b-x" value="Xiaomi">
+                            <label for="f-b-x">Xiaomi</label>
+                        </li>
+                        <li class="product-filter-list-item">
+                            <input type="checkbox" name="brand" id="f-b-i" value="IPhone">
+                            <label for="f-b-i">IPhone</label>
+                        </li>
+                        <li class="product-filter-list-item">
+                            <input type="checkbox" name="brand" id="f-b-h" value="Huawei">
+                            <label for="f-b-h">Huawei</label>
+                        </li>
+                    </ul>
+                </section>
+    
+                <button type="submit" class="product-filter-button">APLICAR</button>
+                <button type="reset" class="product-filter-button">LIMPIAR</button>
+                <button class="product-filter-close" type="button"></button>
+    
+            </form>
         </section>
+
+
 
 
     </main>
@@ -127,7 +137,6 @@
     <script type="module" src="./js/component/header.js"></script>
     <script type="module" src="./js/component/footer.js"></script>
     <script type="module" src="./js/component/product.js"></script>
-    <!-- <script type="module" src="./js/component/prueba.js"></script> -->
 
 
 </body>

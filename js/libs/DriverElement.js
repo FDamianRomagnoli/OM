@@ -3,36 +3,49 @@
 
 export class DriverElement{
     constructor(query){
-        this.container = document.querySelector(query)
-        this.display = (this.container).style.display
+        this.elementHTML = document.querySelector(query)
+        this.display = (this.elementHTML).style.display
     }
 
     stopDisplay(){
-        this.container.style.display = "none"
+        this.elementHTML.style.display = "none"
     }
 
     returnDisplay(){
-        this.container.style.display = this.display
+        this.elementHTML.style.display = this.display
     }
 
     hideDisplay(){
-        this.container.style.opacity = "0"
+        this.elementHTML.style.opacity = "0"
     }
 
     showDisplay(){
-        this.container.style.opacity = "1"
+        this.elementHTML.style.opacity = "1"
     }
 
-    onclick(func){
-        this.container.addEventListener('click', func)
+    setDisplay(configure){
+        this.elementHTML.style.display = configure
     }
+
+    onEvent(func, type = 'click'){
+        this.elementHTML.addEventListener(type, func)
+    }
+
 
     insertHTML(codeHTML){
-        this.container.innerHTML = this.container.innerHTML + codeHTML
+        this.elementHTML.innerHTML = this.elementHTML.innerHTML + codeHTML
     }
 
     cleanHTML(){
-        this.container.innerHTML = ""
+        this.elementHTML.innerHTML = ""
+    }
+
+    replaceHTML(codeHTML){
+        this.elementHTML.innerHTML = codeHTML
+    }
+
+    getSelectedIndex(){
+        return this.elementHTML.options.selectedIndex
     }
 
 }

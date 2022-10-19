@@ -3,8 +3,8 @@ export class CounterPage{
     constructor(btnNext, btnBack, displayCount){
         this.page = 1
         this.maxPage = 1
-        this.btnNext = document.querySelector(btnNext)
-        this.btnBack = document.querySelector(btnBack)
+        this.btnNext = btnNext
+        this.btnBack = btnBack
         this.displayCount = document.querySelector(displayCount)
         this.start()
     }
@@ -22,6 +22,12 @@ export class CounterPage{
 
     refresh(maxPage){
         this.maxPage = maxPage
+        this.updateDisplayCount()
+        this.buttonView()
+    }
+
+    setMaxPageOfResults(results){
+        this.maxPage = Math.trunc((results / 10)) + 1;
         this.updateDisplayCount()
     }
 
@@ -41,9 +47,11 @@ export class CounterPage{
     }
 
     updateDisplayCount(){
-        scrollTo({top: 0})
-        this.displayCount.innerHTML = this.page
-        this.buttonView()
+        setTimeout(() => {
+            scrollTo({top: 0})
+            this.displayCount.innerHTML = this.page
+            this.buttonView()
+        },330)
     }
 
     buttonView(){
