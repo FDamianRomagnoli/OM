@@ -89,7 +89,7 @@ function main(){
                     <div></div>
                 </li>
                 <li>
-                    <a href="./products.html">AYUDA</a>
+                    <a href="./contact.html">AYUDA</a>
                     <div></div>
                 </li>
             </ul>

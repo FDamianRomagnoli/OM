@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Market</title>
+    <link rel="icon" href="img/logo-icon.svg">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/componentes/header.css">
+    <link rel="stylesheet" href="css/componentes/footer.css">
+    <link rel="stylesheet" href="css/componentes/buttonRect.css">
+    <link rel="stylesheet" href="css/componentes/formStyle.css">
+    <link rel="stylesheet" href="css/paginas/contact.css">
+
+</head>
+
+<body>
+
+    <header class="header"></header>
+
+    <main class="main-contact">
+        <form action="">
+            <span class="title-form">Formulario de contacto</span>
+            <div class="contact-item">
+                <label class="label-form" for="name">Nombre</label>
+                <input class="input-form" type="text" id="name" placeholder="Ingrese su nombre">
+            </div>
+            <div class="contact-item">
+                <label class="label-form" for="email">Correo</label>
+                <input class="input-form" type="email" id="email" placeholder="Ingrese su correo">
+            </div>
+            <div class="contact-item">
+                <label class="label-form-area" for="mensaje">Mensaje</label>
+                <textarea class="textarea-form" name="mensaje" id="mensaje"  placeholder="Ingrese su mensaje"></textarea>
+            </div>
+            <div class="mensajes">
+                <p id="error"></p>
+            </div>
+            <button type="button" class="btn-form" id="btn-enviar">Enviar</button>
+        </form>
+
+
+    </main>
+    
+    <!-- <main  class="main-contacto">   
+            
+        <section class="contact-container">
+
+            <h2>Formulario de contacto</h2>
+
+            <form class="form-contacto" action="">
+                <div class="contacto-items">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" placeholder="Ingrese su nombre">
+                </div>
+                <div class="contacto-items">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Ingrese su email" >
+                </div>
+                <div class="contacto-items">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea name="mensaje" id="mensaje" cols="42" rows="2" placeholder="Ingrese su mensaje"></textarea>
+                </div>
+                <div class="mensajes">
+                    <p id="error"></p>
+                </div>
+                <button type="button" class="btn-enviar" id="btn-enviar" >Enviar</button>
+            
+            </form>
+        
+        </section>  
+
+    </main> -->
+
+    <footer id="footer"></footer>
+
+    <script type="module" src="./js/component/header.js"></script>
+    <script type="module" src="./js/component/footer.js"></script>
+    <script src="./js/libs/contact.js"></script>
+
+
+</body>
+
+</html>

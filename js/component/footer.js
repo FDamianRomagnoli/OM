@@ -65,7 +65,7 @@ function getHTMLFooter(footerElement){
 
         document.querySelector('.footer-button-rect').addEventListener('click', () => {
             setTimeout(() => {
-                location.href = './index.html'
+                location.href = './contact.html'
             }, 800)
         })
 
