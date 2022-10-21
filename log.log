@@ -46,4 +46,13 @@ haciendo un efecto visual mas llamativo
 contiene los estilos comun en varios CSS, como variables CSS y limpieza de los estilos originales.
 - js/libs : Contiene "librerias" realizadas por nosotros, no son de terceros.
 
+v2.0.1:
+- Agregado formulario de contacto
+
+v2.0.2:
+- Agregando formulario de inicio de sesion y con su version mobile
+
+v2.0.3:
+- Formulario de contacto, inicio de sesion y registro con responsive 
+
 

@@ -62,12 +62,11 @@ function main(){
             <nav class="nav__mobile">
                 <ul>
                     <li><a href="./index.html"><img src="img/font-home.svg" alt="icono de inicio">Inicio</a></li>
-                    <li><a href=""><img src="img/font-login.svg" alt="icono de inicio de sesion">Ingresar</a></li>
-                    <li><a href=""><img src="img/font-register.svg" alt="icono de registro">Registrarse</a></li>
-                    <li><a href="./products.html"><img src="img/font-category.svg" alt="icono de categorias">Categorias</a></li>
+                    <li><a href="./login.html"><img src="img/font-login.svg" alt="icono de inicio de sesion">Ingresar</a></li>
+                    <li><a href="./register.html"><img src="img/font-register.svg" alt="icono de registro">Registrarse</a></li>
+                    <li><a href="./products.html"><img src="img/font-category.svg" alt="icono de categorias">Productos</a></li>
                     <li><a href="./carrito.html"><img src="img/font-car.svg" alt="icono del carrito">Carrito</a></li>
-                    <li><a href=""><img src="img/font-his.svg" alt="icono del historial">Historial</a></li>
-                    <li><a href=""><img src="img/font-contact.svg" alt="icono de contacto">Contacto</a></li>
+                    <li><a href="./contact.html"><img src="img/font-contact.svg" alt="icono de contacto">Ayuda</a></li>
                 </ul>
 
                 <div class="nav__logo-container">
@@ -81,11 +80,11 @@ function main(){
         <nav class="nav__desktop">
             <ul>
                 <li>
-                    <a href="./products.html">PRODUCTOS</a>
+                    <a href="./index.html">INICIO</a>
                     <div></div>
                 </li>
                 <li>
-                    <a href="./products.html">HISTORIAL</a>
+                    <a href="./products.html">PRODUCTOS</a>
                     <div></div>
                 </li>
                 <li>
@@ -113,8 +112,8 @@ function main(){
     const btnRegister = document.querySelector('.nav__desktop-btn-register');
     const btnLogin = document.querySelector('.nav__desktop-btn-login');
 
-    btnRegister.addEventListener('click', () => timeOutButton('./index.html'))
-    btnLogin.addEventListener('click', () => timeOutButton('./index.html'))
+    btnRegister.addEventListener('click', () => timeOutButton('./register.html'))
+    btnLogin.addEventListener('click', () => timeOutButton('./login.html'))
 
     const carStorage = new CarStorage(document.querySelector('.header-shopping-cart-counter'), 'openMarketCar')
     carStorage.updateCounter()

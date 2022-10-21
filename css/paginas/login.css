@@ -1,0 +1,26 @@
+
+
+.main-form form{
+    position: relative;
+}
+
+.invited-to-register{
+    width: 100%;
+    text-align: center;
+    position: relative;
+    bottom: -5rem;
+    padding-bottom: 2rem;
+    font-size: 1.3rem;
+    font-family: sansProBold;
+}
+
+.a_ingrese_aqui{
+    color: #33b1ff;
+    font-family: sansProBold;
+}
+
+@media (max-width: 370px){
+    .label-form,.input-form{
+        font-size: min(4.2vw,14px);
+    }
+}

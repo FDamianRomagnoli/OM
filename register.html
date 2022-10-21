@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Market</title>
+    <link rel="icon" href="img/logo-icon.svg">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/componentes/header.css">
+    <link rel="stylesheet" href="css/componentes/footer.css">
+    <link rel="stylesheet" href="css/componentes/buttonRect.css">
+    <link rel="stylesheet" href="css/componentes/formStyle.css">
+    <link rel="stylesheet" href="css/paginas/register.css">
+
+
+</head>
+
+<body>
+
+    <header class="header"></header>
+
+    <main class="main-form">
+        <form action="">
+            <span class="title-form">Registro de usuario</span>
+            <div class="form-item">
+                <label class="label-form" for="name">Nombre y apellido</label>
+                <input class="input-form" type="text" id="name" placeholder="Ingrese su nombre y apellido" required>
+            </div>
+            <div class="form-item">
+                <label class="label-form" for="tel">Telefono</label>
+                <input class="input-form" type="text" id="tel" placeholder="Ingrese su telefono" required>
+            </div>
+            <div class="form-item">
+                <label class="label-form" for="email">Email</label>
+                <input class="input-form" type="text" id="email" placeholder="Ingrese su email" required>
+            </div>
+            <div class="form-item">
+                <label class="label-form" for="user">Nombre de usuario</label>
+                <input class="input-form" type="text" id="user" placeholder="Ingrese su nombre de usuario" required>
+            </div>
+            <div class="form-item">
+                <label class="label-form" for="pass">contraseña</label>
+                <input class="input-form" type="password" id="pass" placeholder="Ingrese su contraseña" required>
+            </div>
+            <div class="form-item">
+                <label class="label-form" for="r-pass">Repita su contraseña</label>
+                <input class="input-form" type="password" id="r-pass" placeholder="Repita su contraseña" required>
+            </div>
+             
+            <button type="button" class="btn-form" id="btningresar">Registrarse</button>
+            
+            
+        </form>
+
+
+    </main>
+
+
+
+    <footer id="footer"></footer>
+
+    <script type="module" src="./js/component/header.js"></script>
+    <script type="module" src="./js/component/footer.js"></script>
+
+
+</body>
+
+</html>

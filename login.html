@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="css/componentes/footer.css">
     <link rel="stylesheet" href="css/componentes/buttonRect.css">
     <link rel="stylesheet" href="css/componentes/formStyle.css">
-    <link rel="stylesheet" href="css/paginas/contact.css">
+    <link rel="stylesheet" href="css/paginas/login.css">
+
 
 </head>
 
@@ -22,35 +23,37 @@
 
     <main class="main-form">
         <form action="">
-            <span class="title-form">Formulario de contacto</span>
+            <span class="title-form">Ingreso de usuario</span>
             <div class="form-item">
-                <label class="label-form" for="name">Nombre</label>
-                <input class="input-form" type="text" id="name" placeholder="Ingrese su nombre">
+                <label class="label-form" for="user">Correo</label>
+                <input class="input-form" type="text" id="user" placeholder="Ingrese su correo" >
             </div>
             <div class="form-item">
-                <label class="label-form" for="email">Correo</label>
-                <input class="input-form" type="email" id="email" placeholder="Ingrese su correo">
+                <label class="label-form" for="pass">Contraseña</label>
+                <input class="input-form" type="password" id="pass" placeholder="Ingrese su contraseña" >
             </div>
-            <div class="form-item">
-                <label class="label-form-area" for="mensaje">Mensaje</label>
-                <textarea class="textarea-form" name="mensaje" id="mensaje"  placeholder="Ingrese su mensaje"></textarea>
-            </div>
+
             <div class="mensajes">
                 <p id="error"></p>
             </div>
+             
+            <button type="button" class="btn-form" id="btningresar">Ingresar</button>
+
+            <p class="invited-to-register">¿No esta registrado?<a class="a_ingrese_aqui" href="./register.html"> Ingrese aqui</a></p>
             
-            <button type="button" class="btn-form" id="btn-enviar">Enviar</button>
+            
         </form>
 
 
     </main>
 
 
+
     <footer id="footer"></footer>
 
     <script type="module" src="./js/component/header.js"></script>
     <script type="module" src="./js/component/footer.js"></script>
-    <script type="module" src="./js/libs/contact.js"></script>
+    <script type="module" src="./js/libs/login.js"></script>
 
 
 </body>
