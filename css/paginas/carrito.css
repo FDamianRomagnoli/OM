@@ -1,0 +1,137 @@
+#card_main{
+    padding: 115px 0px 45px 0px;
+}
+
+.card_main-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 45px;
+    padding-bottom: 45px;
+}
+
+
+.summary-buy{
+    position: relative;
+    position: flex;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    gap: 37px;
+    margin: 0 auto;
+    background-color: #E1E1E1;
+    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding: 0px 15px 25px 15px;
+}
+
+.text-summary{
+    display: block;
+    font-family: sansProBold;
+    font-size: 20px;
+    color: #444;
+}
+
+.title-summary{
+    padding: 10px 0px;
+    text-align: center;
+    border-bottom: 2px solid #444;
+}
+
+.trash-all{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-image: url('../../img/cart-trash.svg');
+    width: 24px;
+    height: 27px;
+}
+
+.buy-cart{
+    background-color: #233560;
+    color: #FFF;
+    padding: 13px 0;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 600px;
+    transition: all .5s;
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+.buy-cart:hover{
+    box-shadow: inset 0px 46px 4px rgb(0 0 0 / 25%);
+}
+
+.not-product-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 90%;
+    background-color: transparent;
+    border: 2px solid #444444;
+    border-radius: 5px;
+    padding: 0px 10px;
+    height: 70vh;
+    grid-area: not-product
+}
+
+.not-product-cart{
+    background-image: url('../../img/cart-not-product-svg.svg');
+    width: 112px;
+    height: 99px;
+    margin-right: 12px;
+}
+
+.not-product-title,.not-product-description{
+    color: #444;
+    text-align: center;
+}
+
+.not-product-title{
+    font-size: 24px;
+}
+
+.not-product-description{
+    font-family: sansProRegular;
+    font-size: 16px;
+}
+
+@media (min-width: 768px){
+    .not-product-title{
+        font-size: 34px;
+    }
+    
+    .not-product-description{
+        font-size: 26px;
+    }
+
+    .card_main-container{
+        display: flex;
+        margin: 0 auto;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+}
+
+@media (min-width: 1024px){
+
+    .not-product-container{
+        width: 100%;
+    }
+
+    .card_main-container{
+        max-width: 1000px;
+    }
+
+    .summary-buy{
+        max-width: 1000px;
+    }
+
+    #card_main{
+        padding: 115px 0px 115px 0px;
+    }
+}

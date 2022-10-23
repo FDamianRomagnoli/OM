@@ -15,6 +15,10 @@
     src: url(./fonts/inter/Inter-Light.ttf);
 }
 @font-face {
+    font-family: interSemiBold;
+    src: url(./fonts/inter/Inter-SemiBold.ttf);
+}
+@font-face {
     font-family: interRegular;
     src: url(./fonts/inter/Inter-Regular.ttf);
 }

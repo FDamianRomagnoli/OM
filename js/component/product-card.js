@@ -242,11 +242,11 @@ export function productCardDefine(){
 }
 
 export function createProductCard(product){
-    let envioGratis = product["price"] > 5.000 ? true : false
+    let envioGratis = product["price"] > 5000 ? true : false
     return `
         <product-card
             url='${product["img"]}'
-            priceproduct='${product["price"]}'
+            priceproduct='${Intl.NumberFormat('es-ES').format(product["price"])}'
             titleproduct='${product["title"]}'
             idproduct = '${product["id"]}'
             shipping = ${envioGratis}

@@ -65,7 +65,7 @@ function main(){
                     <li><a href="./login.html"><img src="img/font-login.svg" alt="icono de inicio de sesion">Ingresar</a></li>
                     <li><a href="./register.html"><img src="img/font-register.svg" alt="icono de registro">Registrarse</a></li>
                     <li><a href="./products.html"><img src="img/font-category.svg" alt="icono de categorias">Productos</a></li>
-                    <li><a href="./carrito.html"><img src="img/font-car.svg" alt="icono del carrito">Carrito</a></li>
+                    <li><a href="./cart.html"><img src="img/font-car.svg" alt="icono del carrito">Carrito</a></li>
                     <li><a href="./contact.html"><img src="img/font-contact.svg" alt="icono de contacto">Ayuda</a></li>
                 </ul>
 
@@ -117,6 +117,11 @@ function main(){
 
     const carStorage = new CarStorage(document.querySelector('.header-shopping-cart-counter'), 'openMarketCar')
     carStorage.updateCounter()
+
+    const btnCar = document.querySelector('.header-shopping-cart')
+    btnCar.addEventListener('click', () => setTimeout( () =>{
+        location.href = "./cart.html"
+    } , 300))
 
 
 }

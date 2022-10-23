@@ -16,7 +16,7 @@ export class CarStorage{
             if(this.existsProduct(id) == false){
                 let data = this.getData()
                 data.push({
-                    idProduct : id,
+                    idProduct : parseInt(id),
                     quantity: 1
                 })
                 this.saveData(data)
@@ -24,6 +24,44 @@ export class CarStorage{
             
             this.updateCounter()
         }
+    }
+
+    additionQuantity(id){
+
+        let quantityValue = 1
+
+        if(this.existsProduct(id)){
+            let listData = this.getData()
+            listData.forEach(element => {
+                if(element.idProduct == id){
+                    element.quantity = element.quantity + 1
+                    quantityValue = element.quantity
+                }
+            });
+            this.saveData(listData)
+        }
+
+        return quantityValue
+        
+    }
+
+    subtractionQuantity(id){
+
+        let quantityValue = 1
+
+        if(this.existsProduct(id)){
+            let listData = this.getData()
+            listData.forEach(element => {
+                if(element.idProduct == id && element.quantity > 1){
+                    element.quantity = element.quantity - 1
+                    quantityValue = element.quantity
+                }
+            });
+            this.saveData(listData)
+        }
+
+        return quantityValue
+        
     }
 
     existsProduct(id){
@@ -35,14 +73,20 @@ export class CarStorage{
     deleteProduct(id){
         if(this.storageAvailable('localStorage')){
             let data = this.getData()
-            data = data.filter((idProduct) => {
-                return idProduct != id
+            data = data.filter(product => {
+                return product.idProduct != id
             })
             this.saveData(data)
             this.updateCounter()
         }
     }
 
+    resetProduct(){
+        if(this.storageAvailable('localStorage')){
+            window.localStorage.setItem(this.key, '[]')
+            this.updateCounter()
+        }
+    }
 
     getData(){
         let data = JSON.parse(window.localStorage.getItem(this.key))
@@ -53,7 +97,9 @@ export class CarStorage{
         window.localStorage.setItem(this.key, JSON.stringify(data))
     }
     
-
+    getQuantity(id){
+        return this.getData(id).find(e => e.idProduct == id).quantity
+    }
 
     
     storageAvailable(type) {
