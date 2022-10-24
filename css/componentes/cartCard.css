@@ -4,7 +4,7 @@
     flex-direction: column;
     justify-content: space-between;
     width: 90%;
-    max-width: 330px;
+    max-width: 360px;
     height: 250px;
     padding: 15px 25px;
 }
@@ -107,15 +107,16 @@
 }
 
 @media (min-width: 768px){
-    .cart_card-container{
+    /* .cart_card-container{
         width: 330px;
-    }
+    } */
 }
 
 @media (min-width: 1024px){
     .cart_card-container{
         width: 40%;
-        max-width: 600px;
+        max-width: 400px;
+        transition: all .5s;
     }
     
     .cart_card-image-container{
@@ -125,4 +126,8 @@
         height: 62%;
     }
     
+    .cart_card-container:hover{
+        transform: scale(1.1);
+    }
+
 }
