@@ -18,6 +18,85 @@
     text-align: center;
 }
 
+.modal {
+    position: fixed; 
+    margin: auto;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background: rgba(34,34,68,.8);
+    box-sizing: content-box;
+    visibility: hidden; 
+    transition: all .12s; 
+    z-index: 99;
+
+}
+.modal.visible {
+    visibility: visible; 
+    opacity: 1;
+}
+.modal * {
+    box-sizing: inherit;
+    font-size: 1.4rem;
+}
+.modal .panel {
+    position: absolute; 
+    margin: auto;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background: #d0dff5; 
+    border-radius: 5px;
+    padding: 50px 0;
+    transform: translateY(-25%);
+    transition: all .12s;
+}
+
+.modal .title {
+    position: absolute; 
+    top: 0;
+    width: 100%; 
+    height: 50px;
+    line-height: 50px;
+    background: #0E1525;
+    font-weight: bolder; 
+    padding: 0 2em;
+    border-radius: 5px 5px 0 0;
+    box-sizing: border-box;
+    color: white;
+}
+.modal .panel {
+    cursor: pointer; 
+}
+.modal .panel .content {
+    padding: 1em;
+    box-sizing: border-box;
+}
+.content{
+    margin: 1rem;
+}
+
+.modal .panel  .action {
+    color: #000;
+    font-weight: bold; 
+    cursor: pointer;
+    margin-left: 20px;
+    transition: all .12s;
+}
+
+.btnAceptar{
+    background-color: #0E1525;
+    color: white;
+    width: 30%;
+    height: 40px;
+    margin-top: 0.5rem;
+    margin-top: 2rem;
+    border-radius: 5px;
+    margin-left: 35%;
+}
+
 @media (min-width: 600px){
     .main-form form{
         width: 90%;
