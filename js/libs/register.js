@@ -15,7 +15,7 @@ var tel =document.getElementById("tel");
 var user =document.getElementById("user");
 var pass =document.getElementById("pass");
 var rPass =document.getElementById("r-pass");
-
+var correoTemporal = false
 
 
 var btnRegistrarse = document.getElementById("btnregister");
@@ -140,14 +140,14 @@ function validar(evento){
     evento.preventDefault();
     if (!(email.value==='') && !(nombre.value==='') && !(tel.value==='') && !(user.value==='') && !(pass.value==='') && !(rPass.value==='')){
     if(validarEmail2(email.value) && (validarPassIguales2(pass.value, rPass.value))){
-       
              existe=true;
-       
         }
-        
-
     }
-    if (existe){
+
+    
+    esCorreoTemporal(email.value)
+
+    if (existe && !correoTemporal ){
        
         modal('miventana',{
         title: 'Mensaje',
@@ -162,6 +162,19 @@ function validar(evento){
         console.log(existe)
     }
 }
+
+
+
+function esCorreoTemporal(correo){
+    fetch(`https://open.kickbox.com/v1/disposable/${correo}`)
+
+    .then(res => res.json())
+
+    .then(resultado => {
+        correoTemporal = resultado["disposable"]
+    })
+}
+
 
 function modal(id, data, ok) {
     data=data || {};
