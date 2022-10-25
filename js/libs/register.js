@@ -166,7 +166,9 @@ function validar(evento){
 
 
 function esCorreoTemporal(correo){
-    fetch(`https://open.kickbox.com/v1/disposable/${correo}`)
+    fetch(`https://open.kickbox.com/v1/disposable/${correo}`, {
+        mode: 'no-cors'
+    })
 
     .then(res => res.json())
 
