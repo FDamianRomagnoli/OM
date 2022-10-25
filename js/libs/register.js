@@ -136,7 +136,6 @@ function validarEmail2(email){
 }
 
 function validar(evento){
-    console.log(existe)
     evento.preventDefault();
     if (!(email.value==='') && !(nombre.value==='') && !(tel.value==='') && !(user.value==='') && !(pass.value==='') && !(rPass.value==='')){
     if(validarEmail2(email.value) && (validarPassIguales2(pass.value, rPass.value))){
@@ -144,38 +143,45 @@ function validar(evento){
         }
     }
 
-    
-    esCorreoTemporal(email.value)
 
-    if (existe && !correoTemporal ){
+
+
+    if (existe){
+
+        fetch(`https://open.kickbox.com/v1/disposable/${email.value}`)
+        .then(res => {return res.json()})
+        .then(data => {
+            let esCorreoDesechable = data["disposable"]
+            if(!esCorreoDesechable){
+                modal('miventana',{
+                title: 'Mensaje',
+                width: 300,
+                height: 10,
+                content: 'El usuario se registro exitosamente'},
+                ['Aceptar',function(){
+                document.location.href='index.html';}]);
+            }
+            else{
+                error.innerHTML = "Correo temporal detectado! Ingrese un correo valido"
+            }
+        })
        
-        modal('miventana',{
-        title: 'Mensaje',
-        width: 300,
-        height: 10,
-        content: 'El usuario se registro exitosamente'},
-        ['Aceptar',function(){
-        document.location.href='index.html';
-        }]);
     }else {
         error.innerHTML="Debe completar todos los campos";
-        console.log(existe)
     }
 }
 
+async function getVerificationEmail(email){
+    // const res = await fetch(`https://open.kickbox.com/v1/disposable/${email}`);
+    // const data = await res.json()
+    // console.log(data["disposable"])
 
-
-function esCorreoTemporal(correo){
-    fetch(`https://open.kickbox.com/v1/disposable/${correo}`, {
-        mode: 'no-cors'
-    })
-
-    .then(res => res.json())
-
-    .then(resultado => {
-        correoTemporal = resultado["disposable"]
-    })
+    fetch(`https://open.kickbox.com/v1/disposable/${email}`)
+    .then(res => {return res.json()})
+    .then(data => console.log(data["disposable"]))
 }
+
+
 
 
 function modal(id, data, ok) {

@@ -57,3 +57,9 @@ v2.0.3:
 
 v2.1.0:
 - Pagina de carrito responsive con funcionalidad agregada
+
+v3.0.X:
+- Pagina de inicio agregada
+- Validacion alta de usuario agregada
+- Consumo de API para detectar correos temporales agregada
+- Bug visual en la pagina de carrito Arreglado
