@@ -63,3 +63,4 @@ v3.0.X:
 - Validacion alta de usuario agregada
 - Consumo de API para detectar correos temporales agregada
 - Bug visual en la pagina de carrito Arreglado
+- Agregado href de login a register
